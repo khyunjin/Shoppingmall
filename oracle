@@ -1,0 +1,47 @@
+
+/* 회원 테이블 */
+create table shop_member_tbl (
+id varchar2(30) primary key,
+pwd varchar2(30),
+name varchar2(10),
+gender varchar2(7),
+phone1 varchar2(3),
+phone2 varchar2(4),
+phone3 varchar2(4),
+eid varchar2(30),
+edomain varchar2(50),
+postcode varchar2(8),
+address varchar2(120),
+detailAddress varchar2(100),
+extraAddress varchar2(100),
+regdate date default sysdate
+);
+
+/* 상품 테이블 */
+create table shop_product_tbl (
+prodnum number(5) primary key,
+name varchar2(200),
+kind char(1),						--판매상품 종류 상위그룹(1:OUTER, 2:TOP, 3:PANTS, 4:DRESS&SKIRT)
+subkind char(3),					--판매상품 종류 하위그룹(1(상위그룹)01(하위그룹) ex:outer-jacket)
+price1 number(7) default '0',		--원가
+price2 number(7) default '0',		--판매가
+price3 number(7) default '0',		--순수익
+content varchar2(1000),
+image varchar2(50),
+bestyn char(1) default 'n',			--베스트 상품 여부
+newyn char(1) default 'y',			--신상품 여부
+regdate date default sysdate
+);
+
+drop table shop_product_tbl;
+insert into shop_product_tbl values(10001, '쇼핑몰테스트옷1','1','102',2000,10000,8000,'테스트용설명입니다','p1.jpg','y','y',sysdate);
+insert into shop_product_tbl values(10002, '쇼핑몰테스트옷2','1',2000,10000,8000,'테스트용설명입니다','p2.jpg','y',sysdate);
+insert into shop_product_tbl values(10003, '쇼핑몰테스트옷2','1',2000,10000,8000,'테스트용설명입니다','p3.jpg','y',sysdate);
+insert into shop_product_tbl values(10004, '쇼핑몰테스트옷2','1',2000,10000,8000,'테스트용설명입니다','p4.jpg','y',sysdate);
+insert into shop_product_tbl values(10004, '쇼핑몰테스트옷5','1',2000,10000,8000,'테스트용설명입니다','p4.jpg','y',sysdate);
+
+select * from shop_product_tbl;
+
+select * from shop_product_tbl where bestyn='y' or newyn='y' or kind='1' or subkind='1-2';
+
+delete shop_product_tbl where prodnum='10001';

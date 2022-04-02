@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+[name="slide"] { display: none; }
+.slide-box {
+	max-width: 1500px;
+	width: 100%;
+	margin: 0 auto;
+	background-color: lightpink;
+}
+.slide-box img{
+	width: 100%;
+}
+.slide-list {
+	white-space: nowrap;
+	font-size: 0;
+	overflow: hidden;
+}
+.slide-item {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	width: 100%;
+	transition: all .35s;
+}
+.slide-item label{
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 50px;		/* 화살표 크기 */
+	border-radius: 50%;
+	cursor: pointer;
+}
+label.left{
+	left:20px;
+	background-image: url('../image/arrow-left.png');
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+label.right{
+	right:20px;
+	background-image: url('../image/arrow-right.png');
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+[id="slide1"]:checked ~ .slide-list .slide-item { transform: translateX(0); animation:slide1 20s infinite;}
+[id="slide2"]:checked ~ .slide-list .slide-item { transform: translateX(-100%); animation:slide2 20s infinite;}
+[id="slide3"]:checked ~ .slide-list .slide-item { transform: translateX(-200%); animation:slide3 20s infinite;}
+[id="slide4"]:checked ~ .slide-list .slide-item { transform: translateX(-300%); animation:slide4 20s infinite;}
+
+@keyframes slide1 {
+	0% {left:0%;}
+	23% {left:0%;}
+	25% {left:-100%;}
+	48% {left:-100%;}
+	50% {left:-200%;}
+	73% {left:-200%;}
+	75% {left:-300%;}
+	98% {left:-300%;}
+	100% {left:0%;}
+}
+
+@keyframes slide2 {
+	0% {left:0%;}
+	23% {left:0%;}
+	25% {left:-100%;}
+	48% {left:-100%;}
+	50% {left:-200%;}
+	73% {left:-200%;}
+	75% {left:100%;}
+	98% {left:100%;}
+	100% {left:0%;}
+}
+
+@keyframes slide3 {
+	0% {left:0%;}
+	23% {left:0%;}
+	25% {left:-100%;}
+	48% {left:-100%;}
+	50% {left:200%;}
+	73% {left:200%;}
+	75% {left:100%;}
+	98% {left:100%;}
+	100% {left:0%;}
+}
+
+@keyframes slide4 {
+	0% {left:0%;}
+	23% {left:0%;}
+	25% {left:300%;}
+	48% {left:300%;}
+	50% {left:200%;}
+	73% {left:200%;}
+	75% {left:100%;}
+	98% {left:100%;}
+	100% {left:0%;}
+}
