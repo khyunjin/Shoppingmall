@@ -18,7 +18,7 @@ public class ProductListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		String kind = request.getParameter("kind");
+		String kind = request.getParameter("kind"); 
 		String subkind = request.getParameter("subkind");
 		String bestyn = request.getParameter("bestyn");
 		String newyn = request.getParameter("newyn");

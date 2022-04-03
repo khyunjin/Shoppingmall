@@ -10,6 +10,8 @@ public class ProductDTO {
 	int price2;
 	int price3;
 	String content;
+	String opcolor;
+	String opsize;
 	String image;
 	String bestyn;
 	String newyn;
@@ -62,6 +64,18 @@ public class ProductDTO {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getOpcolor() {
+		return opcolor;
+	}
+	public void setOpcolor(String opcolor) {
+		this.opcolor = opcolor;
+	}
+	public String getOpsize() {
+		return opsize;
+	}
+	public void setOpsize(String opsize) {
+		this.opsize = opsize;
 	}
 	public String getImage() {
 		return image;

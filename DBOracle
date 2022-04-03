@@ -1,0 +1,85 @@
+
+
+/* 회원 테이블 */
+create table shop_member_tbl (
+id varchar2(30) primary key,
+pwd varchar2(30),
+name varchar2(10),
+gender varchar2(7),
+phone1 varchar2(3),
+phone2 varchar2(4),
+phone3 varchar2(4),
+eid varchar2(30),
+edomain varchar2(50),
+postcode varchar2(8),
+address varchar2(120),
+detailAddress varchar2(100),
+extraAddress varchar2(100),
+regdate date default sysdate
+);
+
+
+
+/* 상품 테이블 */
+create table shop_product_tbl (
+prodnum number(5) primary key,
+name varchar2(200),
+kind char(1),						--판매상품 종류 상위그룹(1:OUTER, 2:TOP, 3:PANTS, 4:DRESS&SKIRT)
+subkind char(3),					--판매상품 종류 하위그룹(1(상위그룹)01(하위그룹) ex:outer-jacket)
+price1 number(7) default '0',		--원가
+price2 number(7) default '0',		--판매가
+price3 number(7) default '0',		--순수익
+content varchar2(1000),				--상품 설명
+opcolor varchar2(10),				--option 중 color
+opsize varchar2(10),				--option 중 size
+image varchar2(50),
+bestyn char(1) default 'n',			--베스트 상품 여부
+newyn char(1) default 'y',			--신상품 여부
+regdate date default sysdate
+);
+
+
+
+insert into shop_product_tbl values(10001, '쇼핑몰테스트옷1','1','102',2000,10000,8000,'테스트용설명입니다','blue','free','p1.jpg','y','y',sysdate);
+
+
+/* 장바구니 테이블 */
+create table shop_cart_tbl (
+cartnum number(5) primary key,		--장바구니 번호
+id varchar2(30),					--회원아이디
+prodnum number(5),					--상품번호
+quantity number(3),					--수량
+deliveryyn char(1) default 'n',		--배송 유무
+cartindate date default sysdate,	--카트 담은 날짜
+constraint fk_id foreign key(id) references shop_member_tbl(id),
+constraint fk_prodnum foreign key(prodnum) references shop_product_tbl(prodnum)
+);
+
+
+
+/* 장바구니 번호 시퀀스 생성 */
+create or replace sequence cartseq
+	start with 1
+	increment by 1;
+
+	
+	
+/* 장바구니 리스트 조회시 필요한 view 생성 */
+create or replace view cart_view
+as 
+	select c.id, c.prodnum, c.quantity, p.name, p.image, p.price2, p.opcolor, p.opsize
+	from SHOP_CART_TBL c, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
+	where c.id = m.id and c.prodnum = p.prodnum;
+
+
+/* */
+	
+drop table shop_cart_tbl;
+
+drop table shop_product_tbl;
+
+select * from SHOP_CART_TBL;
+
+select * from cart_view;
+
+select * from cart_view where id='hong123';

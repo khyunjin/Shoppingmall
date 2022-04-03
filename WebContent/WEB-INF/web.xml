@@ -57,4 +57,20 @@
   	<servlet-name>ProductListServlet</servlet-name>
   	<url-pattern>/productlist</url-pattern>
   </servlet-mapping>
+    <servlet>
+  	<servlet-name>CartInServlet</servlet-name>
+  	<servlet-class>product.CartInServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CartInServlet</servlet-name>
+  	<url-pattern>/cartin</url-pattern>
+  </servlet-mapping>
+    <servlet>
+  	<servlet-name>CartListServlet</servlet-name>
+  	<servlet-class>product.CartListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CartListServlet</servlet-name>
+  	<url-pattern>/cartlist</url-pattern>
+  </servlet-mapping>
 </web-app>

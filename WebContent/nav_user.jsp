@@ -35,13 +35,13 @@
 			<a class="" href="user_logout.jsp">LOGOUT</a>
 			<a class="" href="user_info.jsp">MYFAGE</a>
 			<a class="" href="user_infoupdate.jsp?id=<%= id %>">회원정보수정</a>
-			<a class="" href="">장바구니</a>
+			<a class="" href="cart_list.jsp">장바구니</a>
 			<a class="" href="">주문조회</a>
 			<a class="" href="">커뮤니티</a>
 		<%} else {%>
 			<a class="" href="user_login.jsp">LOGIN</a>
 			<a class="" href="user_infoinsert.jsp">JOIN</a>
-			<a class="" href="">장바구니</a>
+			<a class="" href="cart_list.jsp">장바구니</a>
 			<a class="" href="">주문조회</a>
 			<a class="" href="">커뮤니티</a>
 		<%}%>
