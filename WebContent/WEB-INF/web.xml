@@ -81,4 +81,13 @@
   	<servlet-name>CartDelServlet</servlet-name>
   	<url-pattern>/cartdel</url-pattern>
   </servlet-mapping>
+    <servlet>
+  	<servlet-name>CartAmountServlet</servlet-name>
+  	<servlet-class>product.CartAmountServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CartAmountServlet</servlet-name>
+  	<url-pattern>/cartamount</url-pattern>
+  </servlet-mapping>
 </web-app>
+

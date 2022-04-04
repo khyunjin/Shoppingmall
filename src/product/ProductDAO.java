@@ -295,6 +295,29 @@ public class ProductDAO {
 		}
 		return -1;	// 데이터 베이스 오류
 	}
+	
+	// 장바구니 수량 변경
+	public int cartamount(int quantity, int cartnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "update shop_cart_tbl set quantity=? where cartnum=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, cartnum);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;	// 데이터 베이스 오류
+	}
 
 	
 }

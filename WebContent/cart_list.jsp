@@ -24,13 +24,18 @@ img {
 	ArrayList<CartDTO> cartlist = new ProductDAO().cartlist(sessionid);
 		for (CartDTO dto : cartlist) { 
 %>
-		<img alt="product" src="./image/<%= dto.getImage() %>"><p>
-		상품정보(이름) <%= dto.getName() %><p>
+	<form name="cartfrm" method="post" action="./cartamount">
+		<input type="hidden" name="cartnum" value="<%= dto.getCartnum() %>">
+		
+		<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a><p>
+		상품정보(이름) <a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><%= dto.getName() %></a><p>
 		판매가 <%= dto.getPrice2() %><p>
-		수량 <%= dto.getQuantity() %><p>
-		<%= dto.getCartnum() %>
-<input type="button" value="주문하기">
-<input type="button" onclick="location.href='./cartdel?cartnum=<%= dto.getCartnum() %>';" value="삭제하기">
+		수량	<input type="text" name="quantity" value="<%= dto.getQuantity() %>">
+		
+		<input type="submit" value="변경하기">
+		<input type="button" value="주문하기">
+		<input type="button" onclick="location.href='./cartdel?cartnum=<%= dto.getCartnum() %>'" value="삭제하기">
+</form>
 <% } %>
 </body>
 </html>

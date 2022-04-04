@@ -73,13 +73,6 @@ as
 
 
 /* */
-	
-drop table shop_cart_tbl;
-
-drop table shop_product_tbl;
 
 select * from SHOP_CART_TBL;
-
 select * from cart_view;
-
-select * from cart_view where id='hong123';

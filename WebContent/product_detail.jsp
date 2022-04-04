@@ -13,6 +13,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+function count(t) {													// plus, minus
+	const quantity = document.getElementById('quantity');
+	let number = document.getElementById('quantity').value;
+	if(t == 'plus') {
+		number = parseInt(number) + 1;								// number 값을 문자열에서 숫자로 변환해(pareInt) +1 해준다.   
+	}else if(t == 'minus') {
+		number = parseInt(number) - 1;								// number 값을 문자열에서 숫자로 변환해(pareInt) -1 해준다.
+	}
+	quantity.value = number;
+}
+</script>
 <style>
 .detail-box {
 	width: 1200px;
@@ -49,7 +61,9 @@
 		<%= prod.getContent() %><p>
 		<%= prod.getOpcolor() %><p>
 		<%= prod.getOpsize() %><p>
-	<input type="text" name="quantity"><p>
+		<input type="button" value="+" onclick="count('plus')">
+		<input type="text" id="quantity" name="quantity" value="1">
+		<input type="button" value="-" onclick="count('minus')"><p>
 	<input type="submit" value="장바구니 담기">
 	</div>
 </div>
