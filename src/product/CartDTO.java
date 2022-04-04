@@ -2,6 +2,7 @@ package product;
 
 public class CartDTO {
 
+	int cartnum;
 	String id;
 	int prodnum;
 	int price2;
@@ -14,6 +15,12 @@ public class CartDTO {
 	String cartindate;
 	
 	
+	public int getCartnum() {
+		return cartnum;
+	}
+	public void setCartnum(int cartnum) {
+		this.cartnum = cartnum;
+	}
 	public String getId() {
 		return id;
 	}

@@ -67,7 +67,7 @@ create or replace sequence cartseq
 /* 장바구니 리스트 조회시 필요한 view 생성 */
 create or replace view cart_view
 as 
-	select c.id, c.prodnum, c.quantity, p.name, p.image, p.price2, p.opcolor, p.opsize
+	select c.cartnum, c.id, c.prodnum, c.quantity, p.name, p.image, p.price2, p.opcolor, p.opsize
 	from SHOP_CART_TBL c, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
 	where c.id = m.id and c.prodnum = p.prodnum;
 

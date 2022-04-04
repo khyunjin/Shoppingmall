@@ -251,6 +251,7 @@ public class ProductDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				CartDTO dto = new CartDTO();
+				dto.setCartnum(rs.getInt("cartnum"));
 				dto.setId(rs.getString("id"));
 				dto.setProdnum(rs.getInt("prodnum"));
 				dto.setQuantity(rs.getInt("quantity"));
@@ -272,5 +273,28 @@ public class ProductDAO {
 					}
 				} return cartlist;
 			}
-		
+	
+	// 장바구니 삭제
+	public int cartdel(int cartnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "delete from shop_cart_tbl where cartnum=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cartnum);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;	// 데이터 베이스 오류
+	}
+
+	
 }

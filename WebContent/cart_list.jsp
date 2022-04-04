@@ -28,7 +28,9 @@ img {
 		상품정보(이름) <%= dto.getName() %><p>
 		판매가 <%= dto.getPrice2() %><p>
 		수량 <%= dto.getQuantity() %><p>
+		<%= dto.getCartnum() %>
 <input type="button" value="주문하기">
+<input type="button" onclick="location.href='./cartdel?cartnum=<%= dto.getCartnum() %>';" value="삭제하기">
 <% } %>
 </body>
 </html>

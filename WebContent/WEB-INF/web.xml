@@ -73,4 +73,12 @@
   	<servlet-name>CartListServlet</servlet-name>
   	<url-pattern>/cartlist</url-pattern>
   </servlet-mapping>
+    <servlet>
+  	<servlet-name>CartDelServlet</servlet-name>
+  	<servlet-class>product.CartDelServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CartDelServlet</servlet-name>
+  	<url-pattern>/cartdel</url-pattern>
+  </servlet-mapping>
 </web-app>
