@@ -74,5 +74,6 @@ as
 
 /* */
 
+select * from SHOP_PRODUCT_TBL;
 select * from SHOP_CART_TBL;
 select * from cart_view;

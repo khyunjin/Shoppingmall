@@ -29,7 +29,7 @@ img {
 		
 		<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a><p>
 		상품정보(이름) <a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><%= dto.getName() %></a><p>
-		판매가 <%= dto.getPrice2() %><p>
+		판매가 <%= dto.getPrice2() * dto.getQuantity() %><p>
 		수량	<input type="text" name="quantity" value="<%= dto.getQuantity() %>">
 		
 		<input type="submit" value="변경하기">
