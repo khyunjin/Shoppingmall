@@ -39,6 +39,7 @@ public class CartInServlet extends HttpServlet {
 			out.println("<script>alert('장바구니 담기에 실패했습니다.'); location.href='javascript:history.back()'</script>");
 			return;
 		}
+		
 	}
 
 }

@@ -14,18 +14,36 @@
 <html>
 <head>
 <script>
+function inCheck() {
+	
+	var id = "${id}";
+	
+	if(id == ""){
+		if(confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까?")){
+			location.href = "user_login.jsp";
+		} else {
+			return;
+		}
+	} else {
+		document.cartfrm.submit();
+	}
+}
+
 function count(t) {													// plus, minus
 	const quantity = document.getElementById('quantity');
 	let number = document.getElementById('quantity').value;
 	
 	var price = document.getElementById('price').value;
-	var total = document.getElementById('price2');
+	var total = document.getElementById('totalp');
 	
 	if(t == 'plus') {
 		number = parseInt(number) + 1;								// number 값을 문자열에서 숫자로 변환해(pareInt) +1 해준다.   
-		
 	}else if(t == 'minus') {
 		number = parseInt(number) - 1;								// number 값을 문자열에서 숫자로 변환해(pareInt) -1 해준다.
+		if(number<1) {
+			alert("수량은 1개 이상 입력해주세요");
+			return;
+		}
 	}
 	
 	quantity.value = number;
@@ -68,11 +86,11 @@ function count(t) {													// plus, minus
 		<%= prod.getContent() %><p>
 		<%= prod.getOpcolor() %><p>
 		<%= prod.getOpsize() %><p>
-		<input type="text" value="<%= prod.getPrice2() %>" name="price2" id="price2" readonly><p>
+		<input type="text" value="<%= prod.getPrice2() %>" name="totalp" id="totalp" readonly><p>
 		<input type="button" value="+" onclick="count('plus')">
 		<input type="text" id="quantity" name="quantity" value="1" readonly>
 		<input type="button" value="-" onclick="count('minus')"><p>
-	<input type="submit" value="장바구니 담기">
+	<input type="button" onclick="inCheck()" value="장바구니 담기">
 	</div>
 </div>
 </form>
