@@ -26,16 +26,15 @@ img {
 %>
 	<form name="cartfrm" method="post" action="./cartamount">
 		<input type="hidden" name="cartnum" value="<%= dto.getCartnum() %>">
-		
 		<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a><p>
 		상품정보(이름) <a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><%= dto.getName() %></a><p>
 		판매가 <%= dto.getPrice2() * dto.getQuantity() %><p>
-		수량	<input type="text" name="quantity" value="<%= dto.getQuantity() %>">
-		색상 <%= dto.getProdcolor() %> 사이즈 <%= dto.getProdsize() %>
-		<input type="submit" value="변경하기">
+		수량	<input type="text" name="quantity" value="<%= dto.getQuantity() %>"><input type="submit" value="변경하기"><p>
+		색상 <%= dto.getProdcolor() %><p>
+		사이즈 <%= dto.getProdsize() %><p>
 		<input type="button" value="주문하기">
 		<input type="button" onclick="location.href='./cartdel?cartnum=<%= dto.getCartnum() %>'" value="삭제하기">
-</form>
+	</form>
 <% } %>
 </body>
 </html>

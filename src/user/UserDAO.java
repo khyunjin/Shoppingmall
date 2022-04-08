@@ -223,4 +223,27 @@ public class UserDAO {
 			e.printStackTrace();
 		} return pwd;
 	}
+	
+	// 회원탈퇴
+	public int userdel(String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "delete from shop_member_tbl where id=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;	// 데이터 베이스 오류
+	}
+	
 }

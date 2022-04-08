@@ -34,7 +34,7 @@ public class CartInServlet extends HttpServlet {
 		int result = new ProductDAO().cartin(id,prodnum,quantity,prodcolor,prodsize);
 		if(result == 1) {
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('장바구니에 담겼습니다.'); location.href='cart_list.jsp'</script>");
+			out.println("<script>if(confirm('장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?')){ location.href='product_cartlist.jsp'; } else { location.href='javascript:history.back()' } </script>");
 			return;
 		} else {
 			PrintWriter out = response.getWriter();

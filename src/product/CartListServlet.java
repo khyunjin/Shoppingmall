@@ -24,6 +24,6 @@ public class CartListServlet extends HttpServlet {
 		ArrayList<CartDTO> cartlist = dao.cartlist(id);
 	
 		request.setAttribute("cartlist", cartlist);
-		response.sendRedirect("cart_list.jsp?id=" + id); 
+		response.sendRedirect("product_cartlist.jsp?id=" + id); 
 	}
 }

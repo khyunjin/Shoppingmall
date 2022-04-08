@@ -24,6 +24,14 @@ function inCheck() {
 			return;
 		}
 	} else {
+		if(document.cartfrm.prodcolor.value == ""){
+			alert("색상을 선택해주세요.");
+			return;
+			}
+		if(document.cartfrm.prodsize.value == ""){
+			alert("사이즈를 선택해주세요.");
+			return;
+			}
 		document.cartfrm.submit();
 	}
 }
@@ -104,6 +112,7 @@ function count(t) {													// plus, minus
 		<input type="text" id="quantity" name="quantity" value="1" readonly>
 		<input type="button" value="-" onclick="count('minus')"><p>
 	<input type="button" onclick="inCheck()" value="장바구니 담기">
+	<input type="button" onclick="inCheck()" value="즉시 구매하기">
 	</div>
 </div>
 </form>

@@ -19,7 +19,6 @@ regdate date default sysdate
 );
 
 
-
 /* 상품 테이블 */
 create table shop_product_tbl (
 prodnum number(5) primary key,
@@ -71,10 +70,11 @@ prodcolor varchar2(10),
 prodsize varchar2(10),
 deliveryyn char(1) default 'n',		--배송 유무
 cartindate date default sysdate,	--카트 담은 날짜
-constraint fk_id foreign key(id) references shop_member_tbl(id),
-constraint fk_prodnum foreign key(prodnum) references shop_product_tbl(prodnum)
+constraint fk_id foreign key(id) references shop_member_tbl(id) on delete cascade,
+constraint fk_prodnum foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
 
+drop table shop_cart_tbl;
 
 /* 장바구니 번호 시퀀스 생성 */
 create or replace sequence cartseq
@@ -94,5 +94,5 @@ as
 select * from SHOP_PRODUCT_TBL;
 select * from SHOP_CART_TBL;
 select * from cart_view;
-
+select * from SHOP_MEMBER_TBL;
 
