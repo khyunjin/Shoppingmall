@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="product.ProductDAO" %>
 <%@ page import="product.ProductDTO" %>
+<%@ page import="java.util.ArrayList"%>
 <%@ include file="nav_user.jsp" %>
 <%@ include file="header.jsp" %>
 <%@ include file="nav_product.jsp" %>
@@ -15,9 +16,7 @@
 <head>
 <script>
 function inCheck() {
-	
 	var id = "${id}";
-	
 	if(id == ""){
 		if(confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까?")){
 			location.href = "user_login.jsp";
@@ -78,14 +77,28 @@ function count(t) {													// plus, minus
 	<div class="text-box">
 		<input type="hidden" name="prodnum" value="<%= prod.getProdnum() %>">
 		<input type="hidden" name="id" value="<%= cartid %>">
-		<input type="hidden" name="cartcolor" value="<%= prod.getOpcolor() %>">
-		<input type="hidden" name="cartsize" value="<%= prod.getOpsize() %>">
+		<input type="hidden" name="cartcolor" value="<%= prod.getProdcolor() %>">
+		<input type="hidden" name="cartsize" value="<%= prod.getProdsize() %>">
 		<input type="hidden" name="cartimg" value="<%= prod.getImage() %>">
 		<input type="hidden" name="price" id="price" value="<%= prod.getPrice2() %>">
 		<b><%= prod.getName() %></b><p>
 		<%= prod.getContent() %><p>
-		<%= prod.getOpcolor() %><p>
-		<%= prod.getOpsize() %><p>
+		<select name="prodcolor">
+			<option value="">---색상을 선택해주세요(필수)---</option>
+			<% 
+			ArrayList<ProductDTO> colorlist = new ProductDAO().colorlist(prodnum);
+			for(ProductDTO dto : colorlist)  { %>
+			<option value="<%= dto.getProdcolor() %>"><%= dto.getProdcolor() %></option>
+			<% } %>
+		</select><p>
+		<select name="prodsize">
+			<option value="">---사이즈를 선택해주세요(필수)---</option>
+			<% 
+			ArrayList<ProductDTO> sizelist = new ProductDAO().sizelist(prodnum);
+			for(ProductDTO dto : sizelist)  { %>
+			<option value="<%= dto.getProdsize() %>"><%= dto.getProdsize() %></option>
+			<% } %>
+		</select><p>
 		<input type="text" value="<%= prod.getPrice2() %>" name="totalp" id="totalp" readonly><p>
 		<input type="button" value="+" onclick="count('plus')">
 		<input type="text" id="quantity" name="quantity" value="1" readonly>

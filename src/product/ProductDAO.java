@@ -179,7 +179,7 @@ public class ProductDAO {
 		ProductDTO prod = new ProductDTO();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from shop_product_tbl where prodnum=?";
+		String sql = "select * from shop_product_tbl where prodnum =?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, prodnum);
@@ -193,8 +193,6 @@ public class ProductDAO {
 				prod.setPrice2(rs.getInt("price2"));
 				prod.setPrice3(rs.getInt("price3"));
 				prod.setContent(rs.getString("content"));
-				prod.setOpcolor(rs.getString("opcolor"));
-				prod.setOpsize(rs.getString("opsize"));
 				prod.setImage(rs.getString("image"));
 				prod.setBestyn(rs.getString("bestyn"));
 				prod.setNewyn(rs.getString("newyn"));
@@ -213,17 +211,74 @@ public class ProductDAO {
 		return prod;
 	}
 	
-
-	// 장바구니 담기
-	public int cartin(String id, int prodnum, int quantity) {
+	// 상품 옵션 받기(prodcolor)
+	public ArrayList<ProductDTO> colorlist(int prodnum) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "insert into shop_cart_tbl(cartnum, id, prodnum, quantity) values(cartseq.nextval,?,?,?)";
+		String sql = "select * from shop_prodcolor_tbl where prodnum=?";
+		ArrayList<ProductDTO> colorlist = new ArrayList<ProductDTO>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prodnum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductDTO dto = new ProductDTO();
+				dto.setProdcolor(rs.getString("prodcolor"));
+				colorlist.add(dto);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				}finally {
+					try {
+						if(rs !=null) rs.close();
+						if(rs !=null) pstmt.close();
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+				} return colorlist;
+			}
+	
+	
+	// 상품 옵션 받기(prodsize)
+	public ArrayList<ProductDTO> sizelist(int prodnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from shop_prodsize_tbl where prodnum=?";
+		ArrayList<ProductDTO> sizelist = new ArrayList<ProductDTO>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prodnum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductDTO dto = new ProductDTO();
+				dto.setProdsize(rs.getString("prodsize"));
+				sizelist.add(dto);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				}finally {
+					try {
+						if(rs !=null) rs.close();
+						if(rs !=null) pstmt.close();
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+				} return sizelist;
+			}
+	
+	
+	// 장바구니 담기
+	public int cartin(String id, int prodnum, int quantity, String prodcolor, String prodsize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "insert into shop_cart_tbl(cartnum, id, prodnum, quantity, prodcolor, prodsize) values(cartseq.nextval,?,?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setInt(2, prodnum);
 			pstmt.setInt(3, quantity);
+			pstmt.setString(4, prodcolor);
+			pstmt.setString(5, prodsize);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -258,8 +313,8 @@ public class ProductDAO {
 				dto.setName(rs.getString("name"));
 				dto.setImage(rs.getString("image"));
 				dto.setPrice2(rs.getInt("price2"));
-				dto.setOpcolor(rs.getString("opcolor"));
-				dto.setOpsize(rs.getString("opsize"));
+				dto.setProdcolor(rs.getString("prodcolor"));
+				dto.setProdsize(rs.getString("prodsize"));
 				cartlist.add(dto);
 				}
 			} catch (Exception e) {

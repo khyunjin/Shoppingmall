@@ -28,8 +28,10 @@ public class CartInServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		int prodnum = Integer.parseInt(request.getParameter("prodnum"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String prodcolor = request.getParameter("prodcolor");
+		String prodsize = request.getParameter("prodsize");
 		
-		int result = new ProductDAO().cartin(id,prodnum,quantity);
+		int result = new ProductDAO().cartin(id,prodnum,quantity,prodcolor,prodsize);
 		if(result == 1) {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('장바구니에 담겼습니다.'); location.href='cart_list.jsp'</script>");

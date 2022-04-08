@@ -10,12 +10,13 @@ public class ProductDTO {
 	int price2;
 	int price3;
 	String content;
-	String opcolor;
-	String opsize;
+	String prodcolor;
+	String prodsize;
 	String image;
 	String bestyn;
 	String newyn;
 	String regdate;
+	
 	
 	public int getProdnum() {
 		return prodnum;
@@ -65,17 +66,17 @@ public class ProductDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getOpcolor() {
-		return opcolor;
+	public String getProdcolor() {
+		return prodcolor;
 	}
-	public void setOpcolor(String opcolor) {
-		this.opcolor = opcolor;
+	public void setProdcolor(String prodcolor) {
+		this.prodcolor = prodcolor;
 	}
-	public String getOpsize() {
-		return opsize;
+	public String getProdsize() {
+		return prodsize;
 	}
-	public void setOpsize(String opsize) {
-		this.opsize = opsize;
+	public void setProdsize(String prodsize) {
+		this.prodsize = prodsize;
 	}
 	public String getImage() {
 		return image;
@@ -101,6 +102,6 @@ public class ProductDTO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-
+	
 
 }

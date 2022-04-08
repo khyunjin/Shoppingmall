@@ -30,8 +30,6 @@ price1 number(7) default '0',		--원가
 price2 number(7) default '0',		--판매가
 price3 number(7) default '0',		--순수익
 content varchar2(1000),				--상품 설명
-opcolor varchar2(10),				--option 중 color
-opsize varchar2(10),				--option 중 size
 image varchar2(50),
 bestyn char(1) default 'n',			--베스트 상품 여부
 newyn char(1) default 'y',			--신상품 여부
@@ -39,8 +37,28 @@ regdate date default sysdate
 );
 
 
+insert into shop_product_tbl values(10001, '쇼핑몰테스트옷1','1','102',2000,10000,8000,'테스트용설명입니다','p1.jpg','y','y',sysdate);
 
-insert into shop_product_tbl values(10001, '쇼핑몰테스트옷1','1','102',2000,10000,8000,'테스트용설명입니다','blue','free','p1.jpg','y','y',sysdate);
+
+/* 상품 옵션 중 prodcolor(색상) 테이블 */
+create table shop_prodcolor_tbl (
+prodnum number(5),
+prodcolor varchar2(10),
+constraint fk_prodcolor foreign key(prodnum) references shop_product_tbl(prodnum)
+);
+
+
+/* 상품 옵션 중 prodsize(사이즈) 테이블 */
+create table shop_prodsize_tbl (
+prodnum number(5),
+prodsize varchar2(10),
+constraint fk_prodsize foreign key(prodnum) references shop_product_tbl(prodnum)
+);
+
+
+insert into shop_prodcolor_tbl values(10001, 'blue');
+insert into shop_prodcolor_tbl values(10001, 'pink');
+insert into shop_prodsize_tbl values(10001, 'free');
 
 
 /* 장바구니 테이블 */
@@ -49,12 +67,13 @@ cartnum number(5) primary key,		--장바구니 번호
 id varchar2(30),					--회원아이디
 prodnum number(5),					--상품번호
 quantity number(3),					--수량
+prodcolor varchar2(10),
+prodsize varchar2(10),
 deliveryyn char(1) default 'n',		--배송 유무
 cartindate date default sysdate,	--카트 담은 날짜
 constraint fk_id foreign key(id) references shop_member_tbl(id),
 constraint fk_prodnum foreign key(prodnum) references shop_product_tbl(prodnum)
 );
-
 
 
 /* 장바구니 번호 시퀀스 생성 */
@@ -63,17 +82,17 @@ create or replace sequence cartseq
 	increment by 1;
 
 	
-	
 /* 장바구니 리스트 조회시 필요한 view 생성 */
 create or replace view cart_view
 as 
-	select c.cartnum, c.id, c.prodnum, c.quantity, p.name, p.image, p.price2, p.opcolor, p.opsize
+	select c.cartnum, c.id, c.prodnum, c.quantity, c.prodcolor, c.prodsize, p.name, p.image, p.price2
 	from SHOP_CART_TBL c, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
 	where c.id = m.id and c.prodnum = p.prodnum;
 
 
-/* */
 
 select * from SHOP_PRODUCT_TBL;
 select * from SHOP_CART_TBL;
 select * from cart_view;
+
+

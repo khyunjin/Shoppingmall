@@ -9,8 +9,8 @@ public class CartDTO {
 	String name;
 	int quantity;
 	String image;
-	String opcolor;
-	String opsize;
+	String prodcolor;
+	String prodsize;
 	String deliveryyn;
 	String cartindate;
 	
@@ -57,17 +57,17 @@ public class CartDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getOpcolor() {
-		return opcolor;
+	public String getProdcolor() {
+		return prodcolor;
 	}
-	public void setOpcolor(String opcolor) {
-		this.opcolor = opcolor;
+	public void setProdcolor(String prodcolor) {
+		this.prodcolor = prodcolor;
 	}
-	public String getOpsize() {
-		return opsize;
+	public String getProdsize() {
+		return prodsize;
 	}
-	public void setOpsize(String opsize) {
-		this.opsize = opsize;
+	public void setProdsize(String prodsize) {
+		this.prodsize = prodsize;
 	}
 	public String getDeliveryyn() {
 		return deliveryyn;
