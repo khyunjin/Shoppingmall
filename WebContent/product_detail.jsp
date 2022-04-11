@@ -15,7 +15,7 @@
 <html>
 <head>
 <script>
-function inCheck() {
+function CartCheck() {
 	var id = "${id}";
 	if(id == ""){
 		if(confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까?")){
@@ -24,17 +24,40 @@ function inCheck() {
 			return;
 		}
 	} else {
-		if(document.cartfrm.prodcolor.value == ""){
+		if(document.frm.prodcolor.value == ""){
 			alert("색상을 선택해주세요.");
 			return;
 			}
-		if(document.cartfrm.prodsize.value == ""){
+		if(document.frm.prodsize.value == ""){
 			alert("사이즈를 선택해주세요.");
 			return;
 			}
-		document.cartfrm.submit();
+		document.frm.submit();
 	}
 }
+
+function OrderCheck() {
+	var id = "${id}";
+	if(id == ""){
+		if(confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까?")){
+			location.href = "user_login.jsp";
+		} else {
+			return;
+		}
+	} else {
+		if(document.frm.prodcolor.value == ""){
+			alert("색상을 선택해주세요.");
+			return;
+			}
+		if(document.frm.prodsize.value == ""){
+			alert("사이즈를 선택해주세요.");
+			return;
+			}
+		document.frm.action = "product_order_direct.jsp";
+		document.frm.submit();
+	}
+}
+
 
 function count(t) {													// plus, minus
 	const quantity = document.getElementById('quantity');
@@ -77,20 +100,18 @@ function count(t) {													// plus, minus
 <meta charset="UTF-8">
 </head>
 <body>
-<form name="cartfrm" method="post" action="./cartin">
+<form name="frm" method="post" action="./cartin">
 <div class="detail-box">
 	<div class="img-box">
 		<img alt="product" src="./image/<%= prod.getImage() %>">
 	</div>
 	<div class="text-box">
 		<input type="hidden" name="prodnum" value="<%= prod.getProdnum() %>">
-		<input type="hidden" name="id" value="<%= cartid %>">
-		<input type="hidden" name="cartcolor" value="<%= prod.getProdcolor() %>">
-		<input type="hidden" name="cartsize" value="<%= prod.getProdsize() %>">
-		<input type="hidden" name="cartimg" value="<%= prod.getImage() %>">
 		<input type="hidden" name="price" id="price" value="<%= prod.getPrice2() %>">
+		
 		<b><%= prod.getName() %></b><p>
 		<%= prod.getContent() %><p>
+		
 		<select name="prodcolor">
 			<option value="">---색상을 선택해주세요(필수)---</option>
 			<% 
@@ -99,6 +120,7 @@ function count(t) {													// plus, minus
 			<option value="<%= dto.getProdcolor() %>"><%= dto.getProdcolor() %></option>
 			<% } %>
 		</select><p>
+		
 		<select name="prodsize">
 			<option value="">---사이즈를 선택해주세요(필수)---</option>
 			<% 
@@ -107,12 +129,15 @@ function count(t) {													// plus, minus
 			<option value="<%= dto.getProdsize() %>"><%= dto.getProdsize() %></option>
 			<% } %>
 		</select><p>
+		
 		<input type="text" value="<%= prod.getPrice2() %>" name="totalp" id="totalp" readonly><p>
+		
 		<input type="button" value="+" onclick="count('plus')">
 		<input type="text" id="quantity" name="quantity" value="1" readonly>
 		<input type="button" value="-" onclick="count('minus')"><p>
-	<input type="button" onclick="inCheck()" value="장바구니 담기">
-	<input type="button" onclick="inCheck()" value="즉시 구매하기">
+		
+	<input type="button" onclick="CartCheck()" value="장바구니 담기">
+	<input type="button" onclick="OrderCheck()" value="즉시 구매하기">
 	</div>
 </div>
 </form>

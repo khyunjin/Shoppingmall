@@ -373,6 +373,32 @@ public class ProductDAO {
 		}
 		return -1;	// 데이터 베이스 오류
 	}
+	
+	/* 주문 */
+	public int orderin(String id, int prodnum, int quantity, String prodcolor, String prodsize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "insert into shop_order_tbl(ordernum, id, prodnum, quantity, prodcolor, prodsize) values(orderseq.nextval,?,?,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, prodnum);
+			pstmt.setInt(3, quantity);
+			pstmt.setString(4, prodcolor);
+			pstmt.setString(5, prodsize);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;	// 데이터 베이스 오류
+	}
 
 	
 }

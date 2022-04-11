@@ -14,7 +14,6 @@
 <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <meta charset="UTF-8">
-
 </head>
 <body>
 <a href="">내가쓴글</a>

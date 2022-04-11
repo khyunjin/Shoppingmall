@@ -27,7 +27,7 @@ public class CartAmountServlet extends HttpServlet {
 		int result = new ProductDAO().cartamount(quantity, cartnum);
 		if(result == 1) {
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('해당 제품의 수량을 변경했습니다.'); location.href='cart_list.jsp'</script>");
+			out.println("<script>alert('해당 제품의 수량을 변경했습니다.'); location.href='product_cartlist.jsp'</script>");
 			return;
 		} else {
 			PrintWriter out = response.getWriter();
