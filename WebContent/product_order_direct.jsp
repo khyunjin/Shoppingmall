@@ -44,8 +44,7 @@ img {
 수량 <%= quantity %>
 합계 <%= price %><p>
 결제정보
-
-
+최종 결제 금액 <%= price %>
 
 </body>
 </html>
