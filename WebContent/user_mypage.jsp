@@ -19,7 +19,7 @@
 <a href="">내가쓴글</a>
 <a href="user_infoupdate.jsp?id=<%= id %>">회원정보수정</a>
 <a href="product_cartlist.jsp">장바구니</a>
-<a href="">주문조회</a>
+<a href="product_orderlist.jsp">주문조회</a>
 <a href="">반품 신청/조회</a>
 <a href="./UserDelServlet">회원탈퇴</a>
 </body>

@@ -9,7 +9,7 @@
 <%
 	int prodnum = Integer.parseInt(request.getParameter("prodnum"));
 	ProductDTO prod = new ProductDAO().productget(prodnum); 
-	String cartid = (String)session.getAttribute("id");
+	String sessionid = (String)session.getAttribute("id");
 %>
 <!DOCTYPE html>
 <html>
@@ -108,7 +108,7 @@ function count(t) {													// plus, minus
 	<div class="text-box">
 		<input type="hidden" name="prodnum" value="<%= prod.getProdnum() %>">
 		<input type="hidden" name="price" id="price" value="<%= prod.getPrice2() %>">
-		
+		<input type="hidden" name="id" value="<%= sessionid %>">
 		<b><%= prod.getName() %></b><p>
 		<%= prod.getContent() %><p>
 		

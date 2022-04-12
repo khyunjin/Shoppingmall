@@ -97,12 +97,20 @@
   	<servlet-name>UserDelServlet</servlet-name>
   	<url-pattern>/userdel</url-pattern>
   </servlet-mapping>
-      <servlet>
+    <servlet>
   	<servlet-name>OrderInServlet</servlet-name>
   	<servlet-class>product.OrderInServlet</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>OrderInServlet</servlet-name>
   	<url-pattern>/orderin</url-pattern>
+  </servlet-mapping>
+    <servlet>
+  	<servlet-name>OrderListServlet</servlet-name>
+  	<servlet-class>product.OrderListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderListServlet</servlet-name>
+  	<url-pattern>/orderlist</url-pattern>
   </servlet-mapping>
 </web-app>

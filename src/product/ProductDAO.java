@@ -374,11 +374,11 @@ public class ProductDAO {
 		return -1;	// 데이터 베이스 오류
 	}
 	
-	/* 주문 */
-	public int orderin(String id, int prodnum, int quantity, String prodcolor, String prodsize) {
+	// 주문하기
+	public int orderin(String id, int prodnum, int quantity, String prodcolor, String prodsize, String ordername, String orderadd, String orderphone, String orderreq) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "insert into shop_order_tbl(ordernum, id, prodnum, quantity, prodcolor, prodsize) values(orderseq.nextval,?,?,?,?,?)";
+		String sql = "insert into shop_order_tbl(ordernum, id, prodnum, quantity, prodcolor, prodsize, ordername, orderadd, orderphone, orderreq) values(orderseq.nextval,?,?,?,?,?,?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -386,6 +386,10 @@ public class ProductDAO {
 			pstmt.setInt(3, quantity);
 			pstmt.setString(4, prodcolor);
 			pstmt.setString(5, prodsize);
+			pstmt.setString(6, ordername);
+			pstmt.setString(7, orderadd);
+			pstmt.setString(8, orderphone);
+			pstmt.setString(9, orderreq);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -400,5 +404,80 @@ public class ProductDAO {
 		return -1;	// 데이터 베이스 오류
 	}
 
+	
+	// 주문조회
+	public ArrayList<OrderDTO> orderlist(String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from order_view where id=?";
+		ArrayList<OrderDTO> orderlist = new ArrayList<OrderDTO>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				OrderDTO dto = new OrderDTO();
+				dto.setProdnum(rs.getInt("prodnum"));
+				dto.setId(rs.getString("id"));
+				dto.setOrdernum(rs.getInt("ordernum"));
+				dto.setImage(rs.getString("image"));
+				dto.setName(rs.getString("name"));
+				dto.setProdcolor(rs.getString("prodcolor"));
+				dto.setProdsize(rs.getString("prodsize"));
+				dto.setQuantity(rs.getInt("quantity"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setDeliveryyn(rs.getString("deliveryyn"));
+				orderlist.add(dto);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				}finally {
+					try {
+						if(rs !=null) rs.close();
+						if(rs !=null) pstmt.close();
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+				} return orderlist;
+			}
+	
+	
+	//주문 정보 받기
+	public OrderDTO orderget(int ordernum) {
+		OrderDTO order = new OrderDTO();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from shop_order_tbl where ordernum =?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ordernum);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				order.setOrdernum(ordernum);
+				order.setId(rs.getString("id"));
+				order.setProdnum(rs.getInt("prodnum"));
+				order.setQuantity(rs.getInt("quantity"));
+				order.setProdcolor(rs.getString("prodcolor"));
+				order.setProdsize(rs.getString("prodsize"));
+				order.setOrdername(rs.getString("ordername"));
+				order.setOrderadd(rs.getString("orderadd"));
+				order.setOrderphone(rs.getString("orderphone"));
+				order.setOrderreq(rs.getString("orderreq"));
+				order.setDeliveryyn(rs.getString("deliveryyn"));
+				order.setOrderindate(rs.getString("orderindate"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return order;
+	}
+	
 	
 }

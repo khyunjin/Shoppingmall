@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/OrderInServlet")
 
@@ -30,8 +31,12 @@ public class OrderInServlet extends HttpServlet {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String prodcolor = request.getParameter("prodcolor");
 		String prodsize = request.getParameter("prodsize");
+		String ordername = request.getParameter("ordername");
+		String orderadd = request.getParameter("orderadd");
+		String orderphone = request.getParameter("orderphone");
+		String orderreq = request.getParameter("orderreq");
 		
-		int result = new ProductDAO().orderin(id,prodnum,quantity,prodcolor,prodsize);
+		int result = new ProductDAO().orderin(id,prodnum,quantity,prodcolor,prodsize,ordername,orderadd,orderphone,orderreq);
 		if(result == 1) {
 			PrintWriter out = response.getWriter();
 			out.println("<script>if(confirm('주문페이지로 이동합니다. 이동하시겠습니까?')){ location.href='product_orderlist.jsp'; } else { location.href='javascript:history.back()' } </script>");

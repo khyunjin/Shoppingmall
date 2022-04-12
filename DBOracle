@@ -89,7 +89,6 @@ from SHOP_CART_TBL c, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
 where c.id = m.id and c.prodnum = p.prodnum;
 
 
-
 /* 주문 테이블 */
 create table shop_order_tbl (
 ordernum number(5) primary key,		--주문 번호
@@ -98,12 +97,28 @@ prodnum number(5),					--상품번호
 quantity number(3),					--수량
 prodcolor varchar2(10),
 prodsize varchar2(10),
+ordername varchar2(20),				--받는 사람 이름
+orderadd varchar2(200),				--받는 사람 주소
+orderphone varchar2(20),			--받는 사람 연락처
+orderreq varchar(100),				--배송시 요청사항
 deliveryyn char(1) default 'n',		--배송 유무
 orderindate date default sysdate,	--주문한 날짜
 constraint fk_order_id foreign key(id) references shop_member_tbl(id) on delete cascade,					--회원 탈퇴시 주문 정보 함께 지우며 처리됨
 constraint fk_order_prodnum foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
 
+drop table shop_order_tbl;
+
+/* 주문 리스트 조회시 필요한 view 생성 */
+create view order_view
+as 
+select o.prodnum, o.id, o.ordernum, p.image, p.name, o.prodcolor, o.prodsize, o.quantity, (o.quantity * p.price2) as price, o.deliveryyn
+from SHOP_ORDER_TBL o, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
+where o.prodnum = p.prodnum;
+
+drop view order_view;
+
+select * from order_view;
 
 /* 주문 번호 시퀀스 생성 */
 create sequence orderseq
@@ -111,18 +126,12 @@ start with 1
 increment by 1;
 
 	
-/* 주문 리스트 조회시 필요한 view 생성 */
-create or replace view order_view
-as 
-select c.cartnum, c.id, c.prodnum, c.quantity, c.prodcolor, c.prodsize, p.name, p.image, p.price2
-from SHOP_CART_TBL c, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
-where c.id = m.id and c.prodnum = p.prodnum;
 
-
-
+delete from SHOP_CART_TBL where prodnum = '10001';
 select * from shop_member_tbl;
 select * from SHOP_PRODUCT_TBL;
 select * from SHOP_CART_TBL;
 select * from cart_view;
 select * from SHOP_MEMBER_TBL;
 select * from shop_order_tbl;
+select * from order_view;
