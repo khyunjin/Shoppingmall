@@ -113,4 +113,12 @@
   	<servlet-name>OrderListServlet</servlet-name>
   	<url-pattern>/orderlist</url-pattern>
   </servlet-mapping>
+    <servlet>
+  	<servlet-name>OrderDetailServlet</servlet-name>
+  	<servlet-class>product.OrderDetailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderDetailServlet</servlet-name>
+  	<url-pattern>/orderdetail</url-pattern>
+  </servlet-mapping>
 </web-app>

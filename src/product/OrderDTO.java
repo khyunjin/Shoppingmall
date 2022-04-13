@@ -3,6 +3,12 @@ package product;
 public class OrderDTO {
 
 	int ordernum;
+	String username;
+	String eid;
+	String edomain;
+	String phone1;
+	String phone2;
+	String phone3;
 	String id;
 	int prodnum;
 	String image;
@@ -24,6 +30,42 @@ public class OrderDTO {
 	}
 	public void setOrdernum(int ordernum) {
 		this.ordernum = ordernum;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getEid() {
+		return eid;
+	}
+	public void setEid(String eid) {
+		this.eid = eid;
+	}
+	public String getEdomain() {
+		return edomain;
+	}
+	public void setEdomain(String edomain) {
+		this.edomain = edomain;
+	}
+	public String getPhone1() {
+		return phone1;
+	}
+	public void setPhone1(String phone1) {
+		this.phone1 = phone1;
+	}
+	public String getPhone2() {
+		return phone2;
+	}
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+	public String getPhone3() {
+		return phone3;
+	}
+	public void setPhone3(String phone3) {
+		this.phone3 = phone3;
 	}
 	public String getId() {
 		return id;
@@ -109,7 +151,5 @@ public class OrderDTO {
 	public void setOrderindate(String orderindate) {
 		this.orderindate = orderindate;
 	}
-	
-	
 	
 }

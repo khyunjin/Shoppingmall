@@ -405,7 +405,7 @@ public class ProductDAO {
 	}
 
 	
-	// 주문조회
+	// 주문 조회(리스트)
 	public ArrayList<OrderDTO> orderlist(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -442,42 +442,47 @@ public class ProductDAO {
 			}
 	
 	
-	//주문 정보 받기
-	public OrderDTO orderget(int ordernum) {
-		OrderDTO order = new OrderDTO();
+	// 주문 상세 조회
+	public ArrayList<OrderDTO> orderdetail(int ordernum) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from shop_order_tbl where ordernum =?";
+		String sql = "select * from order_detail_view where ordernum=?";
+		ArrayList<OrderDTO> orderdetail = new ArrayList<OrderDTO>();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, ordernum);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				order.setOrdernum(ordernum);
-				order.setId(rs.getString("id"));
-				order.setProdnum(rs.getInt("prodnum"));
-				order.setQuantity(rs.getInt("quantity"));
-				order.setProdcolor(rs.getString("prodcolor"));
-				order.setProdsize(rs.getString("prodsize"));
-				order.setOrdername(rs.getString("ordername"));
-				order.setOrderadd(rs.getString("orderadd"));
-				order.setOrderphone(rs.getString("orderphone"));
-				order.setOrderreq(rs.getString("orderreq"));
-				order.setDeliveryyn(rs.getString("deliveryyn"));
-				order.setOrderindate(rs.getString("orderindate"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs !=null) rs.close();
-				if(rs !=null) pstmt.close();
+			while(rs.next()) {
+				OrderDTO dto = new OrderDTO();
+				dto.setOrdernum(rs.getInt("ordernum"));
+				dto.setUsername(rs.getString("username"));
+				dto.setEid(rs.getString("eid"));
+				dto.setEdomain(rs.getString("edomain"));
+				dto.setPhone1(rs.getString("phone1"));
+				dto.setPhone2(rs.getString("phone2"));
+				dto.setPhone3(rs.getString("phone3"));
+				dto.setOrdername(rs.getString("ordername"));
+				dto.setOrderadd(rs.getString("orderadd"));
+				dto.setOrderphone(rs.getString("orderphone"));
+				dto.setOrderreq(rs.getString("orderreq"));
+				dto.setImage(rs.getString("image"));
+				dto.setName(rs.getString("name"));
+				dto.setProdcolor(rs.getString("prodcolor"));
+				dto.setProdsize(rs.getString("prodsize"));
+				dto.setQuantity(rs.getInt("quantity"));
+				dto.setPrice(rs.getInt("price"));
+				orderdetail.add(dto);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				}finally {
+					try {
+						if(rs !=null) rs.close();
+						if(rs !=null) pstmt.close();
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+				} return orderdetail;
 			}
-		}
-		return order;
-	}
-	
 	
 }

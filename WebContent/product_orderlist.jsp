@@ -27,7 +27,7 @@ img {
 	<form name="cartfrm" method="post" action="./cartamount">
 		<input type="hidden" name="ordernum" value="<%= dto.getOrdernum() %>">
 		
-		주문번호<a href="product_orderdetail.jsp?ordernum=<%= dto.getOrdernum() %>"><%= dto.getOrdernum() %></a><p>
+		주문번호<a href="./orderdetail?ordernum=<%= dto.getOrdernum() %>"><%= dto.getOrdernum() %></a><p>
 		
 		이미지 <a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a><p>
 		

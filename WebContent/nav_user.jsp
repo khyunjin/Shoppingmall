@@ -34,7 +34,7 @@
 		<%if (id != null) {%>
 			<a class="" href="user_logout.jsp">LOGOUT</a>
 			<a class="" href="user_mypage.jsp">MYFAGE</a>
-			<a class="" href="product_cartlist.jsp">MYCART</a>
+			<a class="" href="./cartlist">MYCART</a>
 		<%} else {%>
 			<a class="" href="user_login.jsp">LOGIN</a>
 			<a class="" href="user_infoinsert.jsp">JOIN</a>

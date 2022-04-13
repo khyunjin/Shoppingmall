@@ -8,24 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet("/OrderListServlet")
+@WebServlet("/OrderDetailServlet")
 
-public class OrderListServlet extends HttpServlet {
+public class OrderDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		HttpSession session = request.getSession();
-		String sessionid = (String)session.getAttribute("id");
+		int ordernum = Integer.parseInt(request.getParameter("ordernum"));
 		ProductDAO dao = new ProductDAO();
 		
-		ArrayList<OrderDTO> orderlist = dao.orderlist(sessionid);
+		ArrayList<OrderDTO> orderdetail = dao.orderdetail(ordernum);
 	
-		request.setAttribute("orderlist", orderlist);
-		response.sendRedirect("product_orderlist.jsp?id=" + sessionid); 
+		request.setAttribute("orderdetail", orderdetail);
+		response.sendRedirect("product_orderdetail.jsp?ordernum=" + ordernum); 
 	}
 }

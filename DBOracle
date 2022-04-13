@@ -107,7 +107,12 @@ constraint fk_order_id foreign key(id) references shop_member_tbl(id) on delete 
 constraint fk_order_prodnum foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
 
-drop table shop_order_tbl;
+
+/* 주문 번호 시퀀스 생성 */
+create sequence orderseq
+start with 1
+increment by 1;
+
 
 /* 주문 리스트 조회시 필요한 view 생성 */
 create view order_view
@@ -116,18 +121,19 @@ select o.prodnum, o.id, o.ordernum, p.image, p.name, o.prodcolor, o.prodsize, o.
 from SHOP_ORDER_TBL o, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
 where o.prodnum = p.prodnum;
 
-drop view order_view;
 
-select * from order_view;
+/* 주문 상세 조회시 필요한 view 생성 */
+create view order_detail_view
+as
+select o.ordernum, m.name as username, m.eid, m.edomain, m.phone1, m.phone2, m.phone3,
+o.ordername, o.orderadd, o.orderphone, o.orderreq, p.image, p.name,
+o.prodcolor, o.prodsize, o.quantity, (o.quantity * p.price2) as price
+from SHOP_ORDER_TBL o, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
+where o.prodnum = p.prodnum and m.id = o.id;
 
-/* 주문 번호 시퀀스 생성 */
-create sequence orderseq
-start with 1
-increment by 1;
 
-	
 
-delete from SHOP_CART_TBL where prodnum = '10001';
+
 select * from shop_member_tbl;
 select * from SHOP_PRODUCT_TBL;
 select * from SHOP_CART_TBL;
