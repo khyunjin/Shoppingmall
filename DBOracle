@@ -36,14 +36,15 @@ regdate date default sysdate
 );
 
 
-insert into shop_product_tbl values(10001, '쇼핑몰테스트옷1','1','102',2000,10000,8000,'테스트용설명입니다','p1.jpg','y','y',sysdate);
+insert into shop_product_tbl values(10001, '쇼핑몰테스트옷1','1','102',2000,10000,8000,'테스트용설명입니다','31.jpg','y','y',sysdate);
+insert into shop_product_tbl values(10002, '클래식 포멀 싱글 버튼 자켓','1','101',20000,60000,40000,'테스트용설명입니다','26.jpg','y','y',sysdate);
 
 
 /* 상품 옵션 중 prodcolor(색상) 테이블 */
 create table shop_prodcolor_tbl (
 prodnum number(5),
 prodcolor varchar2(10),
-constraint fk_prodcolor foreign key(prodnum) references shop_product_tbl(prodnum)
+constraint fk_prodcolor foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
 
 
@@ -51,7 +52,7 @@ constraint fk_prodcolor foreign key(prodnum) references shop_product_tbl(prodnum
 create table shop_prodsize_tbl (
 prodnum number(5),
 prodsize varchar2(10),
-constraint fk_prodsize foreign key(prodnum) references shop_product_tbl(prodnum)
+constraint fk_prodsize foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
 
 
@@ -130,7 +131,6 @@ o.ordername, o.orderadd, o.orderphone, o.orderreq, p.image, p.name,
 o.prodcolor, o.prodsize, o.quantity, (o.quantity * p.price2) as price
 from SHOP_ORDER_TBL o, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
 where o.prodnum = p.prodnum and m.id = o.id;
-
 
 
 

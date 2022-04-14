@@ -38,6 +38,7 @@ public class UserDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -73,6 +74,7 @@ public class UserDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -112,6 +114,7 @@ public class UserDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -147,6 +150,7 @@ public class UserDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -175,6 +179,7 @@ public class UserDAO {
 				try {
 					if(rs !=null) rs.close();
 					if(rs !=null) pstmt.close();
+					if(rs !=null) conn.close();
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -199,7 +204,15 @@ public class UserDAO {
 			} 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} return id;
+			}finally {
+				try {
+					if(rs !=null) rs.close();
+					if(rs !=null) pstmt.close();
+					if(rs !=null) conn.close();
+				}catch (Exception e) {
+					e.printStackTrace();
+				} 
+			} return id;
 	}
 	
 	// 비밀번호 찾기
@@ -219,9 +232,17 @@ public class UserDAO {
 			if(rs.next()) {
 				pwd = rs.getString("pwd");
 			} 
-		} catch (Exception e) {
+		}  catch (Exception e) {
 			e.printStackTrace();
-		} return pwd;
+			}finally {
+				try {
+					if(rs !=null) rs.close();
+					if(rs !=null) pstmt.close();
+					if(rs !=null) conn.close();
+				}catch (Exception e) {
+					e.printStackTrace();
+				} 
+			} return pwd;
 	}
 	
 	// 회원탈퇴
@@ -239,6 +260,7 @@ public class UserDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

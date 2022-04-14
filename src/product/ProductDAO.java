@@ -52,6 +52,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -90,6 +91,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -129,6 +131,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -167,6 +170,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -204,6 +208,7 @@ public class ProductDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -232,6 +237,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -260,6 +266,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -286,6 +293,7 @@ public class ProductDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -323,6 +331,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -367,6 +376,7 @@ public class ProductDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -397,6 +407,7 @@ public class ProductDAO {
 			try {
 				if(rs !=null) rs.close();
 				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -435,6 +446,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -479,6 +491,7 @@ public class ProductDAO {
 					try {
 						if(rs !=null) rs.close();
 						if(rs !=null) pstmt.close();
+						if(rs !=null) conn.close();
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
