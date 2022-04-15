@@ -9,8 +9,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<script>
+function checkAll(checkAll){
+	  const checkboxes 
+	       = document.getElementsByName('product');
+	  
+	  checkboxes.forEach((checkbox) => {
+	    checkbox.checked = checkAll.checked;
+	  })
+	}
+</script>
 <style>
 .cart-box {
+	font-size: 14px;
 	width: 1200px;
 	padding-top: 30px;
 	margin: 0 auto;
@@ -69,12 +80,13 @@ a {
 <div class="cart-box">
 	<h4>장바구니</h4>
 	<hr width="1200px">
+		<span style="width: 30px;"><input type="checkbox" name="product" onclick='checkAll(this)'></span>
 		<span style="width: 180px;">이미지</span>
 		<span style="width: 450px;">상품정보</span>
 		<span style="width: 150px;">판매가</span>
-		<span style="width: 120px;">수량</span>
+		<span style="width: 100px;">수량</span>
 		<span style="width: 120px;">합계</span>
-		<span style="width: 150px;">선택</span>
+		<span style="width: 140px;">선택</span>
 	<hr width="1200px">
 	<form name="cartfrm" method="post" action="./cartamount">
 	<%
@@ -82,8 +94,10 @@ a {
 		ArrayList<CartDTO> cartlist = new ProductDAO().cartlist(sessionid);
 		for (CartDTO dto : cartlist) { 
 	%>
-		<input type="hidden" name="cartnum" value="<%= dto.getCartnum() %>">
 		
+		<input type="hidden" name="cartnum" value="<%= dto.getCartnum() %>">
+		<span style="width: 30px;">
+			<input type="checkbox" name="product"></span>
 		<span style="width: 180px;">
 			<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a></span>
 		<span style="width: 450px;">
@@ -91,16 +105,22 @@ a {
 		    <br>[옵션: <%= dto.getProdcolor() %> / <%= dto.getProdsize() %> ]</span>
 		<span style="width: 150px;">
 			<%= dto.getPrice2() %>원</span>
-		<span style="width: 120px;">
+		<span style="width: 100px;">
 			<input id="quantity" type="text" name="quantity" value="<%= dto.getQuantity() %>"><br>
 			<input id="submit" type="submit" value="변경"></span>
 		<span style="width: 120px;">
 			<%= dto.getPrice2() * dto.getQuantity() %>원</span>
-		<span style="width: 150px;">
+		<span style="width: 140px;">
 			<input id="order" type="button" value="주문">
 			<input id="delete" type="button" onclick="location.href='./cartdel?cartnum=<%= dto.getCartnum() %>'" value="삭제"></span>
 	</form>
 <% } %>
+</div>
+<div>
+	선택상품삭제하기, 장바구니 비우기
+</div>
+<div>
+	총 주문금액
 </div>
 </body>
 </html>

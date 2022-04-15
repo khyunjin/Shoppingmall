@@ -11,6 +11,7 @@
 <head>
 <style>
 .order-box {
+	font-size: 14px;
 	width: 1200px;
 	padding-top: 30px;
 	margin: 0 auto;
