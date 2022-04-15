@@ -61,6 +61,11 @@ insert into shop_prodcolor_tbl values(10001, 'pink');
 insert into shop_prodsize_tbl values(10001, 'free');
 
 
+insert into shop_prodcolor_tbl values(10002, 'blue');
+insert into shop_prodcolor_tbl values(10002, 'pink');
+insert into shop_prodsize_tbl values(10002, 'free');
+
+
 /* 장바구니 테이블 */
 create table shop_cart_tbl (
 cartnum number(5) primary key,		--장바구니 번호
@@ -69,9 +74,9 @@ prodnum number(5),					--상품번호
 quantity number(3),					--수량
 prodcolor varchar2(10),
 prodsize varchar2(10),
-deliveryyn char(1) default 'n',		--배송 유무
+deliveryyn char(1) default 'n',		--배송 유무(y:배송중, n:배송준비중, f:배송완료)
 cartindate date default sysdate,	--카트 담은 날짜
-constraint fk_id foreign key(id) references shop_member_tbl(id) on delete cascade,					--회원 탈퇴시 카트 정보 함께 지우며 처리됨
+constraint fk_id foreign key(id) references shop_member_tbl(id) on delete cascade,		--회원 탈퇴시 카트 정보 함께 지우며 처리됨
 constraint fk_prodnum foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
 
@@ -102,9 +107,9 @@ ordername varchar2(20),				--받는 사람 이름
 orderadd varchar2(200),				--받는 사람 주소
 orderphone varchar2(20),			--받는 사람 연락처
 orderreq varchar(100),				--배송시 요청사항
-deliveryyn char(1) default 'n',		--배송 유무
+deliveryyn char(1) default 'n',		--배송 유무(y:배송중, n:배송준비중, f:배송완료)
 orderindate date default sysdate,	--주문한 날짜
-constraint fk_order_id foreign key(id) references shop_member_tbl(id) on delete cascade,					--회원 탈퇴시 주문 정보 함께 지우며 처리됨
+constraint fk_order_id foreign key(id) references shop_member_tbl(id) on delete cascade,		--회원 탈퇴시 주문 정보 함께 지우며 처리됨
 constraint fk_order_prodnum foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
 

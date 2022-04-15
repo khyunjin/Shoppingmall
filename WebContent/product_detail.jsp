@@ -98,36 +98,13 @@ function count(t) {													// plus, minus
 	margin-left:700px;
 	text-align: left;
 }
-.button {
-	width: 500px;
-	height: 60px;
-	border: 0;
-	outline: 0;
-	border-radius: 3px;
-}
-.cart {
-	background-color: #797065;
-	color: white;
-}
-.buy {
-	background-color: #D8D3CD;
-	color: #797065;
-}
 .option {
 	width: 500px;
 	padding: 5px;
 	border: 1px solid #999;
 	border-radius: 3px;
 }
-.text-box {
-	width: 80px;
-	border: 0;
-	outline: 0;
-	font-style: italic;
-	font-weight: bolder;
-	text-align: center;
-}
-.quantity-box  {
+#quantity  {
 	width: 30px;
 	text-align: center;
 	border: 0;
@@ -138,6 +115,29 @@ function count(t) {													// plus, minus
 	height: 40px;
 	border: 0;
 	outline: 0;
+}
+#totalp {
+	width: 80px;
+	border: 0;
+	outline: 0;
+	font-style: italic;
+	font-weight: bolder;
+	text-align: center;
+}
+.button {
+	width: 500px;
+	height: 60px;
+	border: 0;
+	outline: 0;
+	border-radius: 3px;
+}
+#cart {
+	background-color: #D8D3CD;
+	color: #797065;
+}
+#order {
+	background-color: #797065;
+	color: white;
 }
 .bottom-box{
 	width: 1200px;
@@ -158,8 +158,8 @@ function count(t) {													// plus, minus
 	</div>
 	<div class="spec-box">
 		<h3><%= prod.getName() %></h3><p>
-		<%= prod.getPrice2() %>원<p><br>
-		<%= prod.getContent() %><p>
+			<%= prod.getPrice2() %>원<p><br>
+			<%= prod.getContent() %><p>
 		<hr width="500px"><p>
 		<select class="option" name="prodcolor">
 			<option value="">색상을 선택해주세요</option>
@@ -180,13 +180,13 @@ function count(t) {													// plus, minus
 			<% } %>
 		</select><p>
 		<input class="count-box" type="button" value="+" onclick="count('plus')">
-		<input class="quantity-box" type="text" id="quantity" name="quantity" value="1" readonly>
+		<input id="quantity" type="text" id="quantity" name="quantity" value="1" readonly>
 		<input class="count-box" type="button" value="-" onclick="count('minus')"><p><p>
 		총 상품금액
-		<input class="text-box" type="text" value="<%= prod.getPrice2() %>" name="totalp" id="totalp" readonly>원<p>
+		<input id="totalp" type="text" value="<%= prod.getPrice2() %>" name="totalp" id="totalp" readonly>원<p>
 		<hr width="500px"><p>
-		<input class="button cart" type="button" onclick="CartCheck()" value="Add To Cart"><p>
-		<input class="button buy" type="button" onclick="OrderCheck()" value="Buy Now">
+		<input class="button" id="cart" type="button" onclick="CartCheck()" value="Add To Cart"><p>
+		<input class="button" id="order" type="button" onclick="OrderCheck()" value="Buy Now">
 	</div>
 </div>
 	<div class="bottom-box">
