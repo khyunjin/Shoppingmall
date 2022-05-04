@@ -18,7 +18,7 @@ public class OrderDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		int ordernum = Integer.parseInt(request.getParameter("ordernum"));
+		String ordernum = request.getParameter("ordernum");
 		ProductDAO dao = new ProductDAO();
 		
 		ArrayList<OrderDTO> orderdetail = dao.orderdetail(ordernum);

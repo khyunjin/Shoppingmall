@@ -2,14 +2,15 @@ package product;
 
 public class OrderDTO {
 
-	int ordernum;
-	String username;
-	String eid;
-	String edomain;
-	String phone1;
-	String phone2;
-	String phone3;
+	String ordernum;
 	String id;
+	int allquantity;
+	int totalprice;
+	String ordername;
+	String orderadd;
+	String orderphone;
+	String orderreq;
+	String orderindate;
 	int prodnum;
 	String image;
 	String name;
@@ -17,61 +18,62 @@ public class OrderDTO {
 	int quantity;
 	String prodcolor;
 	String prodsize;
-	String ordername;
-	String orderadd;
-	String orderphone;
-	String orderreq;
 	String deliveryyn;
-	String orderindate;
 	
 	
-	public int getOrdernum() {
+	public String getOrdernum() {
 		return ordernum;
 	}
-	public void setOrdernum(int ordernum) {
+	public void setOrdernum(String ordernum) {
 		this.ordernum = ordernum;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getEid() {
-		return eid;
-	}
-	public void setEid(String eid) {
-		this.eid = eid;
-	}
-	public String getEdomain() {
-		return edomain;
-	}
-	public void setEdomain(String edomain) {
-		this.edomain = edomain;
-	}
-	public String getPhone1() {
-		return phone1;
-	}
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
-	}
-	public String getPhone2() {
-		return phone2;
-	}
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
-	}
-	public String getPhone3() {
-		return phone3;
-	}
-	public void setPhone3(String phone3) {
-		this.phone3 = phone3;
 	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getAllquantity() {
+		return allquantity;
+	}
+	public void setAllquantity(int allquantity) {
+		this.allquantity = allquantity;
+	}
+	public int getTotalprice() {
+		return totalprice;
+	}
+	public void setTotalprice(int totalprice) {
+		this.totalprice = totalprice;
+	}
+	public String getOrdername() {
+		return ordername;
+	}
+	public void setOrdername(String ordername) {
+		this.ordername = ordername;
+	}
+	public String getOrderadd() {
+		return orderadd;
+	}
+	public void setOrderadd(String orderadd) {
+		this.orderadd = orderadd;
+	}
+	public String getOrderphone() {
+		return orderphone;
+	}
+	public void setOrderphone(String orderphone) {
+		this.orderphone = orderphone;
+	}
+	public String getOrderreq() {
+		return orderreq;
+	}
+	public void setOrderreq(String orderreq) {
+		this.orderreq = orderreq;
+	}
+	public String getOrderindate() {
+		return orderindate;
+	}
+	public void setOrderindate(String orderindate) {
+		this.orderindate = orderindate;
 	}
 	public int getProdnum() {
 		return prodnum;
@@ -115,41 +117,14 @@ public class OrderDTO {
 	public void setProdsize(String prodsize) {
 		this.prodsize = prodsize;
 	}
-	public String getOrdername() {
-		return ordername;
-	}
-	public void setOrdername(String ordername) {
-		this.ordername = ordername;
-	}
-	public String getOrderadd() {
-		return orderadd;
-	}
-	public void setOrderadd(String orderadd) {
-		this.orderadd = orderadd;
-	}
-	public String getOrderphone() {
-		return orderphone;
-	}
-	public void setOrderphone(String orderphone) {
-		this.orderphone = orderphone;
-	}
-	public String getOrderreq() {
-		return orderreq;
-	}
-	public void setOrderreq(String orderreq) {
-		this.orderreq = orderreq;
-	}
 	public String getDeliveryyn() {
 		return deliveryyn;
 	}
 	public void setDeliveryyn(String deliveryyn) {
 		this.deliveryyn = deliveryyn;
 	}
-	public String getOrderindate() {
-		return orderindate;
-	}
-	public void setOrderindate(String orderindate) {
-		this.orderindate = orderindate;
-	}
+	
+	
+	
 	
 }

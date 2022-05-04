@@ -86,7 +86,7 @@ create sequence cartseq
 start with 1
 increment by 1;
 
-	
+
 /* 장바구니 리스트 조회시 필요한 view 생성 */
 create or replace view cart_view
 as 
@@ -97,20 +97,16 @@ where c.id = m.id and c.prodnum = p.prodnum;
 
 /* 주문 테이블 */
 create table shop_order_tbl (
-ordernum number(5) primary key,		--주문 번호
+ordernum varchar2(10) primary key,	--주문 번호
 id varchar2(30),					--회원아이디
-prodnum number(5),					--상품번호
-quantity number(3),					--수량
-prodcolor varchar2(10),
-prodsize varchar2(10),
+allquantity number(3),				--총 주문 수량(합계)
+totalprice number(6),				--총 주문 금액
 ordername varchar2(20),				--받는 사람 이름
 orderadd varchar2(200),				--받는 사람 주소
 orderphone varchar2(20),			--받는 사람 연락처
 orderreq varchar(100),				--배송시 요청사항
-deliveryyn char(1) default 'n',		--배송 유무(y:배송중, n:배송준비중, f:배송완료)
 orderindate date default sysdate,	--주문한 날짜
-constraint fk_order_id foreign key(id) references shop_member_tbl(id) on delete cascade,		--회원 탈퇴시 주문 정보 함께 지우며 처리됨
-constraint fk_order_prodnum foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
+constraint fk_order_id foreign key(id) references shop_member_tbl(id) on delete cascade		--회원 탈퇴시 주문 정보 함께 지우며 처리됨
 );
 
 
@@ -119,30 +115,43 @@ create sequence orderseq
 start with 1
 increment by 1;
 
+ 
+/* 주문 상세 테이블 */
+create table shop_odetail_tbl (
+odetailnum number(5) primary key,	--세부 주문 번호
+ordernum varchar2(10),				--주문 번호
+prodnum number(5),					--상품번호
+quantity number(3),					--상품 개별 수량
+prodcolor varchar2(10),				--상품 색상
+prodsize varchar2(10),				--상품 사이즈
+deliveryyn char(1) default 'n',		--배송 유무(y:배송중, n:배송준비중, f:배송완료)
+constraint fk_order_odnum foreign key(ordernum) references shop_order_tbl(ordernum) on delete cascade
+);
+
+
+/* 주문 상세 번호 시퀀스 생성 */
+create sequence odetailseq
+start with 1
+increment by 1;
+
 
 /* 주문 리스트 조회시 필요한 view 생성 */
 create view order_view
 as 
-select o.prodnum, o.id, o.ordernum, p.image, p.name, o.prodcolor, o.prodsize, o.quantity, (o.quantity * p.price2) as price, o.deliveryyn
-from SHOP_ORDER_TBL o, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
-where o.prodnum = p.prodnum;
+select o.id, o.ordernum, to_char(o.orderindate, 'yyyy-mm-dd') as orderindate, d.prodnum, p.image, p.name, d.prodcolor, d.prodsize, d.quantity, (d.quantity * p.price2) as price, d.deliveryyn
+from SHOP_ORDER_TBL o, SHOP_PRODUCT_TBL p, shop_odetail_tbl d
+where d.prodnum = p.prodnum and o.ordernum = d.ordernum;
 
 
 /* 주문 상세 조회시 필요한 view 생성 */
 create view order_detail_view
 as
-select o.ordernum, m.name as username, m.eid, m.edomain, m.phone1, m.phone2, m.phone3,
-o.ordername, o.orderadd, o.orderphone, o.orderreq, p.image, p.name,
-o.prodcolor, o.prodsize, o.quantity, (o.quantity * p.price2) as price
-from SHOP_ORDER_TBL o, SHOP_PRODUCT_TBL p, SHOP_MEMBER_TBL m
-where o.prodnum = p.prodnum and m.id = o.id;
+select o.ordernum, o.ordername, o.orderadd, o.orderphone, o.orderreq, p.image, p.name,
+d.prodcolor, d.prodsize, d.quantity, (d.quantity * p.price2) as price, o.totalprice, o.allquantity
+from SHOP_ORDER_TBL o, SHOP_ODETAIL_TBL d, SHOP_PRODUCT_TBL p
+where d.prodnum = p.prodnum and o.ordernum = d.ordernum;
 
 
+select * from order_detail_view ;
 
-select * from shop_member_tbl;
-select * from SHOP_PRODUCT_TBL;
-select * from SHOP_CART_TBL;
-select * from cart_view;
-select * from SHOP_MEMBER_TBL;
-select * from shop_order_tbl;
-select * from order_view;
+

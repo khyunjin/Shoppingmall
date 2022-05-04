@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ include file="nav_user.jsp" %>
 <%@ include file="header.jsp" %>
 <%@ include file="nav_product.jsp" %>
-<%@ page import="java.util.ArrayList"%>
 <%@ page import="product.ProductDAO" %>
-<%@ page import="product.OrderDTO" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page import="product.CartDTO" %>
+<!DOCTYPE html>
 <html>
-<%
+<% 
 	UserDTO user = new UserDAO().userget(id);
-	String ordernum = request.getParameter("ordernum");
-	OrderDTO order = new ProductDAO().orderget(ordernum);
 %>
 <head>
 <style>
@@ -40,18 +38,47 @@ span {
 	margin-bottom: 20px;
 }
 img {
-	width: 200px;
+	width: 180px;
+}
+.text-box  {
+	padding: 10px;
+	height: 35px;
+	border: 1px solid lightgray;
 }
 .bottom-box{
 	width: 1200px;
 	margin: 0 auto;
+}
+#order {
+	margin: auto;
+	display: block;
+	width: 300px;
+	height: 60px;
+	border: 0;
+	outline: 0;
+	border-radius: 3px;
+	background-color: #797065;
+	color: white;
+	font-size: 20px;
+}
+#Allorder {
+	margin: auto;
+	display: block;
+	width: 300px;
+	height: 60px;
+	border: 0;
+	outline: 0;
+	border-radius: 3px;
+	background-color: #797065;
+	color: white;
+	font-size: 20px;
 }
 </style>
 <meta charset="UTF-8">
 </head>
 <body>
 <div class="order-box">
-	<h3>주문 상세 정보</h3>
+	<h3>주문/결제</h3>
 	<hr width="1200px">
 	<br>
 	<h4>상품 정보</h4>
@@ -62,35 +89,43 @@ img {
 		<span style="width: 120px; text-align: center;">수량</span>
 		<span style="width: 150px; text-align: center;">합계</span>
 	<hr width="1200px">
+	<form name="frm" method="post" action="./orderin">
 	<%
 		int AllQuantity = 0;
-		int TotalPrice = 0;
-		ArrayList<OrderDTO> orderdetail = new ProductDAO().orderdetail(ordernum);
-		for (OrderDTO dto : orderdetail) { 
-			AllQuantity = dto.getAllquantity();
-			TotalPrice = dto.getTotalprice();
+		int AllPrice = 0;
+		String sessionid = (String)session.getAttribute("id");
+		ArrayList<CartDTO> cartlist = new ProductDAO().cartlist(sessionid);
+		for (CartDTO dto : cartlist) { 
+			AllQuantity += dto.getQuantity();
+			AllPrice += dto.getPrice2() * dto.getQuantity();
 	%>
+		<input type="hidden" name="prodnum" value="<%= dto.getProdnum() %>">
+		<input type="hidden" name="quantity" value="<%= dto.getQuantity() %>">
+		<input type="hidden" name="prodcolor" value="<%= dto.getProdcolor() %>">
+		<input type="hidden" name="prodsize" value="<%= dto.getProdsize() %>">
+		<input type="hidden" name="pname" value="<%= dto.getName() %>">
 		<span style="width: 180px; text-align: center;">
-			<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a></span>
+			<img alt="product" src="./image/<%= dto.getImage() %>"></span>
 		<span style="width: 350px; text-align: center;">
-			 <%= dto.getName() %></span>
+			<%= dto.getName() %></span>
 		<span style="width: 350px; text-align: center;">
 			<%= dto.getProdcolor() %><br><%= dto.getProdsize() %></span>
 		<span style="width: 120px; text-align: center;">
 			<%= dto.getQuantity() %></span>
 		<span style="width: 150px; text-align: center;">
-			<%= dto.getPrice() %></span>
-	<% } %>
-	
+			<%= dto.getPrice2() * dto.getQuantity() %>원</span>
+<% } %>
 	<div class="bottom-box">
 	<hr width="1200px">
 		<span style="width:550px; text-align: center;">합계</span>
 		<span style="width:550px; text-align: center;">총 상품금액</span>
 	<hr width="1200px">
+		<input type="hidden" name="allquantity" value="<%= AllQuantity %>">
+		<input type="hidden" name="totalprice" value="<%= AllPrice %>">
 		<span style="width:550px; text-align: center;"><%= AllQuantity %></span>
-		<span style="width:550px; text-align: center;"><%= TotalPrice %>원</span>
-		
+		<span style="width:550px; text-align: center;"><%= AllPrice %>원</span>
 	<hr width="1200px">
+	</div>
 	<br>
 	<h4>구매자 정보</h4>
 	<hr width="1200px">
@@ -106,21 +141,19 @@ img {
 	<h4>받는사람 정보</h4>
 	<hr width="1200px">
 		<span class="span1">이름</span>
-		<span class="span2"><%= order.getOrdername() %></span><br>
+		<span class="span2"><input class="text-box" type="text" name="ordername" value="<%= user.getName() %>"></span><br>
 		<span class="span1">배송주소</span>
-		<span class="span2"><%= order.getOrderadd() %></span><br>
+		<span class="span2"><input class="text-box" style="width:500px;" type="text" name="orderadd" value="<%= user.getAddress() %><%= user.getDetailAddress() %><%= user.getExtraAddress() %>"></span><br>
 		<span class="span1">연락처 </span>
-		<span class="span2"><%= order.getOrderphone() %></span><br>
+		<span class="span2"><input class="text-box" type="text" name="orderphone" value="<%= user.getPhone1() %>-<%= user.getPhone2() %>-<%= user.getPhone3() %>"></span><br>
 		<span class="span1">배송시 요청사항 </span>
-		<span class="span2">
-			<%
-				String Orderreq = order.getOrderreq();
-				if(Orderreq == null) { out.println("배송시 요청사항 없음"); }
-				if(Orderreq != null) { out.println(Orderreq); }
-			%></span><br>
+		<span class="span2"><input class="text-box" style="width:500px;" type="text" name="orderreq"></span><br>
 	<hr width="1200px">
 	<br>
-</div>
+	<div class="bottom-box">
+		<input id="order" type="submit" value="주문하기">
+	</div>
+</form>
 </div>
 </body>
 </html>

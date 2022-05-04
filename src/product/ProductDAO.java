@@ -384,22 +384,26 @@ public class ProductDAO {
 		return -1;	// 데이터 베이스 오류
 	}
 	
-	// 주문하기
-	public int orderin(String id, int prodnum, int quantity, String prodcolor, String prodsize, String ordername, String orderadd, String orderphone, String orderreq) {
+	// 상품페이지에서 즉시 주문하기
+	public int orderdirect(String ordernum, String id, int allquantity, int totalprice, String ordername, String orderadd, String orderphone, String orderreq, String ordernum2, int prodnum, int quantity, String prodcolor, String prodsize) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "insert into shop_order_tbl(ordernum, id, prodnum, quantity, prodcolor, prodsize, ordername, orderadd, orderphone, orderreq) values(orderseq.nextval,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert all into shop_order_tbl(ordernum, id, allquantity, totalprice, ordername, orderadd, orderphone, orderreq) values(?,?,?,?,?,?,?,?) into shop_odetail_tbl(odetailnum, ordernum, prodnum, quantity, prodcolor, prodsize) values(odetailseq.nextval,?,?,?,?,?) select * from dual";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setInt(2, prodnum);
-			pstmt.setInt(3, quantity);
-			pstmt.setString(4, prodcolor);
-			pstmt.setString(5, prodsize);
-			pstmt.setString(6, ordername);
-			pstmt.setString(7, orderadd);
-			pstmt.setString(8, orderphone);
-			pstmt.setString(9, orderreq);
+			pstmt.setString(1, ordernum);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, allquantity);
+			pstmt.setInt(4, totalprice);
+			pstmt.setString(5, ordername);
+			pstmt.setString(6, orderadd);
+			pstmt.setString(7, orderphone);
+			pstmt.setString(8, orderreq);
+			pstmt.setString(9, ordernum2);
+			pstmt.setInt(10, prodnum);
+			pstmt.setInt(11, quantity);
+			pstmt.setString(12, prodcolor);
+			pstmt.setString(13, prodsize);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -416,6 +420,94 @@ public class ProductDAO {
 	}
 
 	
+	// 장바구니에서 전체상품 주문하기 - shop_order_tbl에 값 저장
+	public int orderin(String ordernum, String id, int allquantity, int totalprice, String ordername, String orderadd, String orderphone, String orderreq) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "insert into shop_order_tbl(ordernum, id, allquantity, totalprice, ordername, orderadd, orderphone, orderreq) values(?,?,?,?,?,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ordernum);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, allquantity);
+			pstmt.setInt(4, totalprice);
+			pstmt.setString(5, ordername);
+			pstmt.setString(6, orderadd);
+			pstmt.setString(7, orderphone);
+			pstmt.setString(8, orderreq);
+			return pstmt.executeUpdate();
+			} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;	// 데이터 베이스 오류
+	}
+	
+
+	// 장바구니에서 전체상품 주문하기 - shop_odetail_tbl 값 저장
+	public int odetailin(String ordernum, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "insert into shop_odetail_tbl(odetailnum, ordernum, prodnum, quantity, prodcolor, prodsize) select odetailseq.nextval, ?, prodnum, quantity, prodcolor, prodsize from shop_cart_tbl where id=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ordernum);
+			pstmt.setString(2, id);
+			return pstmt.executeUpdate();
+			} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;	// 데이터 베이스 오류
+	}
+
+	
+	// 받는 사람 정보
+	public OrderDTO orderget(String ordernum) {
+		OrderDTO order = new OrderDTO();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from shop_order_tbl where ordernum=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ordernum);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				order.setOrdernum(ordernum);
+				order.setOrdername(rs.getString("ordername"));
+				order.setOrderadd(rs.getString("orderadd"));
+				order.setOrderphone(rs.getString("orderphone"));
+				order.setOrderreq(rs.getString("orderreq"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) rs.close();
+				if(rs !=null) pstmt.close();
+				if(rs !=null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return order;	// 데이터 베이스 오류
+	}
+	
+	
 	// 주문 조회(리스트)
 	public ArrayList<OrderDTO> orderlist(String id) {
 		PreparedStatement pstmt = null;
@@ -428,9 +520,10 @@ public class ProductDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				OrderDTO dto = new OrderDTO();
-				dto.setProdnum(rs.getInt("prodnum"));
 				dto.setId(rs.getString("id"));
-				dto.setOrdernum(rs.getInt("ordernum"));
+				dto.setOrdernum(rs.getString("ordernum"));
+				dto.setOrderindate(rs.getString("orderindate"));
+				dto.setProdnum(rs.getInt("prodnum"));
 				dto.setImage(rs.getString("image"));
 				dto.setName(rs.getString("name"));
 				dto.setProdcolor(rs.getString("prodcolor"));
@@ -455,24 +548,18 @@ public class ProductDAO {
 	
 	
 	// 주문 상세 조회
-	public ArrayList<OrderDTO> orderdetail(int ordernum) {
+	public ArrayList<OrderDTO> orderdetail(String ordernum) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from order_detail_view where ordernum=?";
 		ArrayList<OrderDTO> orderdetail = new ArrayList<OrderDTO>();
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, ordernum);
+			pstmt.setString(1, ordernum);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				OrderDTO dto = new OrderDTO();
-				dto.setOrdernum(rs.getInt("ordernum"));
-				dto.setUsername(rs.getString("username"));
-				dto.setEid(rs.getString("eid"));
-				dto.setEdomain(rs.getString("edomain"));
-				dto.setPhone1(rs.getString("phone1"));
-				dto.setPhone2(rs.getString("phone2"));
-				dto.setPhone3(rs.getString("phone3"));
+				dto.setOrdernum(rs.getString("ordernum"));
 				dto.setOrdername(rs.getString("ordername"));
 				dto.setOrderadd(rs.getString("orderadd"));
 				dto.setOrderphone(rs.getString("orderphone"));
@@ -483,6 +570,8 @@ public class ProductDAO {
 				dto.setProdsize(rs.getString("prodsize"));
 				dto.setQuantity(rs.getInt("quantity"));
 				dto.setPrice(rs.getInt("price"));
+				dto.setTotalprice(rs.getInt("totalprice"));
+				dto.setAllquantity(rs.getInt("allquantity"));
 				orderdetail.add(dto);
 				}
 			} catch (Exception e) {
@@ -497,5 +586,4 @@ public class ProductDAO {
 					}
 				} return orderdetail;
 			}
-	
 }

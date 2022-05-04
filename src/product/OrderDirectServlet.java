@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/OrderInServlet")
+@WebServlet("/OrderDirectServlet")
 
-public class OrderInServlet extends HttpServlet {
+public class OrderDirectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public OrderInServlet() {
+    public OrderDirectServlet() {
         super();
     }
 
@@ -35,6 +35,7 @@ public class OrderInServlet extends HttpServlet {
 		}
 		
 		String ordernum = year + "" + subNum;
+		String ordernum2 = year + "" + subNum;
 		String id = request.getParameter("id");
 		int allquantity = Integer.parseInt(request.getParameter("allquantity"));
 		int totalprice = Integer.parseInt(request.getParameter("totalprice"));
@@ -42,13 +43,15 @@ public class OrderInServlet extends HttpServlet {
 		String orderadd = request.getParameter("orderadd");
 		String orderphone = request.getParameter("orderphone");
 		String orderreq = request.getParameter("orderreq");
+		int prodnum = Integer.parseInt(request.getParameter("prodnum"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String prodcolor = request.getParameter("prodcolor");
+		String prodsize = request.getParameter("prodsize");
 		
-		int result = new ProductDAO().orderin(ordernum,id,allquantity,totalprice,ordername,orderadd,orderphone,orderreq);
-		int result2 = new ProductDAO().odetailin(ordernum,id);
-		
-		if(result >= 0 && result2 >= 0) {
+		int result = new ProductDAO().orderdirect(ordernum,id,allquantity,totalprice,ordername,orderadd,orderphone,orderreq,ordernum2,prodnum,quantity,prodcolor,prodsize);
+		if(result >= 0) {
 			PrintWriter out = response.getWriter();
-			out.println("<script>if(confirm('주문에 성공하였습니다. 주문 조회 페이지로 이동하시겠습니까?')){ location.href='product_orderlist.jsp'; } else { location.href='javascript:history.back()' } </script>");
+			out.println("<script>if(confirm('주문에 성공하였습니다. 주문페이지로 이동하시겠습니까?')){ location.href='product_orderlist.jsp'; } else { location.href='javascript:history.back()' } </script>");
 			return;
 		} else {
 			PrintWriter out = response.getWriter();
@@ -59,4 +62,3 @@ public class OrderInServlet extends HttpServlet {
 	}
 
 }
-

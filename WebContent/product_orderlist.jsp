@@ -22,7 +22,7 @@ span {
 	text-align: center;
 }
 img {
-	width: 180px;
+	width: 150px;
 }
 a {
 	text-decoration: none;
@@ -35,12 +35,12 @@ a {
 <div class="order-box">
 	<h4>주문한 상품</h4>
 	<hr width="1200px">
-		<span style="width: 120px;">주문번호</span>
-		<span style="width: 180px;">이미지</span>
-		<span style="width: 450px;">상품정보</span>
-		<span style="width: 120px;">수량</span>
-		<span style="width: 120px;">상품 구매금액</span>
+		<span style="width: 180px;">주문일자</span>
+		<span style="width: 150px;">이미지</span>
+		<span style="width: 350px;">상품정보</span>
+		<span style="width: 150px;">상품금액</span>
 		<span style="width: 150px;">배송상태</span>
+		<span style="width: 180px;">주문상세</span>
 	<hr width="1200px">
 	<form name="cartfrm" method="post" action="./cartamount">
 	<%		
@@ -49,17 +49,14 @@ a {
 		for (OrderDTO dto : orderlist) { 
 	%>
 		<input type="hidden" name="ordernum" value="<%= dto.getOrdernum() %>">
-
-		<span style="width: 120px;">
-			<a href="./orderdetail?ordernum=<%= dto.getOrdernum() %>"><%= dto.getOrdernum() %></a></span>
 		<span style="width: 180px;">
-			<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a></span>		
-		<span style="width: 450px;">
-			<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><%= dto.getName() %></a>
-			<br>[옵션: <%= dto.getProdcolor() %> / <%= dto.getProdsize() %>]</span>
-		<span style="width: 120px;">
-			<%= dto.getQuantity() %>개</span>
-		<span style="width: 120px;">
+			<%= dto.getOrderindate() %></span>
+		<span style="width: 150px;">
+			<a href="product_detail.jsp?prodnum=<%= dto.getProdnum() %>"><img alt="product" src="./image/<%= dto.getImage() %>"></a></span>
+		<span style="width: 350px;">
+			<%= dto.getName() %>
+			<br>[옵션: <%= dto.getProdcolor() %> / <%= dto.getProdsize() %> / <%= dto.getQuantity() %>개 ]</span>
+		<span style="width: 150px;">
 			<%= dto.getPrice() %>원</span>
 		<span style="width: 150px;">
 			<% 
@@ -68,6 +65,13 @@ a {
 				if(delivery.equals("n")) { out.println("배송준비중"); }
 				if(delivery.equals("f")) { out.println("배송완료"); }
 			%></span>
+		<span style="width: 180px;">
+			<%
+				String ordernum = dto.getOrdernum();
+				if(ordernum.equals(ordernum))  { 
+			%>
+			<a href="./orderdetail?ordernum=<%= dto.getOrdernum() %>"><%= dto.getOrdernum() %><br>(주문번호)</a></span>	
+			<% } %>
 	</form>
 <% } %>
 </div>

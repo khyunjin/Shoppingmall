@@ -98,12 +98,12 @@
   	<url-pattern>/userdel</url-pattern>
   </servlet-mapping>
     <servlet>
-  	<servlet-name>OrderInServlet</servlet-name>
-  	<servlet-class>product.OrderInServlet</servlet-class>
+  	<servlet-name>OrderDirectServlet</servlet-name>
+  	<servlet-class>product.OrderDirectServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>OrderInServlet</servlet-name>
-  	<url-pattern>/orderin</url-pattern>
+  	<servlet-name>OrderDirectServlet</servlet-name>
+  	<url-pattern>/orderdirect</url-pattern>
   </servlet-mapping>
     <servlet>
   	<servlet-name>OrderListServlet</servlet-name>
@@ -120,5 +120,13 @@
   <servlet-mapping>
   	<servlet-name>OrderDetailServlet</servlet-name>
   	<url-pattern>/orderdetail</url-pattern>
+  </servlet-mapping>
+    <servlet>
+  	<servlet-name>OrderInServlet</servlet-name>
+  	<servlet-class>product.OrderInServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderInServlet</servlet-name>
+  	<url-pattern>/orderin</url-pattern>
   </servlet-mapping>
 </web-app>

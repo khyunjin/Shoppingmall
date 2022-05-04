@@ -82,11 +82,13 @@ img {
 		<span style="width: 120px; text-align: center;">수량</span>
 		<span style="width: 150px; text-align: center;">합계</span>
 	<hr width="1200px">
-		<form name="frm" method="post" action="./orderin">
+		<form name="frm" method="post" action="./orderdirect">
 		<input type="hidden" name="prodnum" value="<%= prod.getProdnum() %>">
 		<input type="hidden" name="prodcolor" value="<%= prodcolor %>">
 		<input type="hidden" name="prodsize" value="<%= prodsize %>">
 		<input type="hidden" name="quantity" value="<%= quantity %>">
+		<input type="hidden" name="allquantity" value="<%= quantity %>">
+		<input type="hidden" name="totalprice" value="<%= price %>">
 		<span style="width: 180px; text-align: center;">
 			<img alt="product" src="./image/<%= prod.getImage() %>"></span>	
 		<span style="width: 350px; text-align: center;">
