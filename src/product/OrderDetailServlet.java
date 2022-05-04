@@ -20,7 +20,6 @@ public class OrderDetailServlet extends HttpServlet {
 		
 		String ordernum = request.getParameter("ordernum");
 		ProductDAO dao = new ProductDAO();
-		
 		ArrayList<OrderDTO> orderdetail = dao.orderdetail(ordernum);
 	
 		request.setAttribute("orderdetail", orderdetail);

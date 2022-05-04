@@ -42,11 +42,12 @@ public class OrderInServlet extends HttpServlet {
 		String orderadd = request.getParameter("orderadd");
 		String orderphone = request.getParameter("orderphone");
 		String orderreq = request.getParameter("orderreq");
-		
+				
 		int result = new ProductDAO().orderin(ordernum,id,allquantity,totalprice,ordername,orderadd,orderphone,orderreq);
 		int result2 = new ProductDAO().odetailin(ordernum,id);
+		int result3 = new ProductDAO().cartalldel(id);
 		
-		if(result >= 0 && result2 >= 0) {
+		if(result >= 0 && result2 >= 0 && result3 >= 0) {
 			PrintWriter out = response.getWriter();
 			out.println("<script>if(confirm('주문에 성공하였습니다. 주문 조회 페이지로 이동하시겠습니까?')){ location.href='product_orderlist.jsp'; } else { location.href='javascript:history.back()' } </script>");
 			return;

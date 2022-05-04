@@ -56,8 +56,8 @@ constraint fk_prodsize foreign key(prodnum) references shop_product_tbl(prodnum)
 );
 
 
-insert into shop_prodcolor_tbl values(10001, 'blue');
-insert into shop_prodcolor_tbl values(10001, 'pink');
+insert into shop_prodcolor_tbl values(10001, 'gray');
+insert into shop_prodcolor_tbl values(10001, 'black');
 insert into shop_prodsize_tbl values(10001, 'free');
 
 
@@ -150,8 +150,5 @@ select o.ordernum, o.ordername, o.orderadd, o.orderphone, o.orderreq, p.image, p
 d.prodcolor, d.prodsize, d.quantity, (d.quantity * p.price2) as price, o.totalprice, o.allquantity
 from SHOP_ORDER_TBL o, SHOP_ODETAIL_TBL d, SHOP_PRODUCT_TBL p
 where d.prodnum = p.prodnum and o.ordernum = d.ordernum;
-
-
-select * from order_detail_view ;
 
 

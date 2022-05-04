@@ -66,12 +66,7 @@ a {
 				if(delivery.equals("f")) { out.println("배송완료"); }
 			%></span>
 		<span style="width: 180px;">
-			<%
-				String ordernum = dto.getOrdernum();
-				if(ordernum.equals(ordernum))  { 
-			%>
-			<a href="./orderdetail?ordernum=<%= dto.getOrdernum() %>"><%= dto.getOrdernum() %><br>(주문번호)</a></span>	
-			<% } %>
+			<a href="./orderdetail?ordernum=<%= dto.getOrdernum() %>"><%= dto.getOrdernum() %><br>(주문번호)</a></span>
 	</form>
 <% } %>
 </div>

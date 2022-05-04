@@ -474,7 +474,30 @@ public class ProductDAO {
 		}
 		return -1;	// 데이터 베이스 오류
 	}
-
+	
+	
+	// 전체주문 완료 후 장바구니 비우기
+		public int cartalldel(String id) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "delete from shop_cart_tbl where id=?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				return pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(rs !=null) rs.close();
+					if(rs !=null) pstmt.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return -1;	// 데이터 베이스 오류
+		}
+		
 	
 	// 받는 사람 정보
 	public OrderDTO orderget(String ordernum) {

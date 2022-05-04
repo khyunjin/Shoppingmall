@@ -92,12 +92,12 @@ img {
 	<form name="frm" method="post" action="./orderin">
 	<%
 		int AllQuantity = 0;
-		int AllPrice = 0;
+		int TotalPrice = 0;
 		String sessionid = (String)session.getAttribute("id");
 		ArrayList<CartDTO> cartlist = new ProductDAO().cartlist(sessionid);
 		for (CartDTO dto : cartlist) { 
 			AllQuantity += dto.getQuantity();
-			AllPrice += dto.getPrice2() * dto.getQuantity();
+			TotalPrice += dto.getPrice2() * dto.getQuantity();
 	%>
 		<input type="hidden" name="prodnum" value="<%= dto.getProdnum() %>">
 		<input type="hidden" name="quantity" value="<%= dto.getQuantity() %>">
@@ -121,9 +121,9 @@ img {
 		<span style="width:550px; text-align: center;">총 상품금액</span>
 	<hr width="1200px">
 		<input type="hidden" name="allquantity" value="<%= AllQuantity %>">
-		<input type="hidden" name="totalprice" value="<%= AllPrice %>">
+		<input type="hidden" name="totalprice" value="<%= TotalPrice %>">
 		<span style="width:550px; text-align: center;"><%= AllQuantity %></span>
-		<span style="width:550px; text-align: center;"><%= AllPrice %>원</span>
+		<span style="width:550px; text-align: center;"><%= TotalPrice %>원</span>
 	<hr width="1200px">
 	</div>
 	<br>
