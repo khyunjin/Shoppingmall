@@ -247,3 +247,4 @@ insert into shop_prodcolor_tbl values(10022, 'black');
 insert into shop_prodsize_tbl values(10022, 'S');
 insert into shop_prodsize_tbl values(10022, 'M');
 
+

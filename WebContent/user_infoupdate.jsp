@@ -47,8 +47,8 @@
 	<div class="row mb-3">
 		<label class="col-sm-2 col-form-label">성별<a style="color:red;">*</a></label>
 		<div class="col-auto mt-2">
-		남&nbsp;<input type="radio" name="gender" id="gender" class="form-check-input" value="남" <% if(user.getGender().equals("남")) { %> checked <% } %>>&nbsp;
-		여&nbsp;<input type="radio" name="gender" id="gender" class="form-check-input" value="여" <% if(user.getGender().equals("여")) { %> checked <% } %>>
+		남&nbsp;<input type="radio" name="gender" id="male" class="form-check-input" value="남" <% if(user.getGender().equals("남")) { %> checked <% } %>>&nbsp;
+		여&nbsp;<input type="radio" name="gender" id="female" class="form-check-input" value="여" <% if(user.getGender().equals("여")) { %> checked <% } %>>
 		</div>
 	</div>
 <hr>
