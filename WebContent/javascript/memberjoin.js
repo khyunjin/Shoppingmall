@@ -60,12 +60,17 @@ function joinCheck(){
 		return;
 		}
 		
+		
 // 성별 유효성 검사
 
-	if(!document.getElementById('gender').checked) {
+	var male = document.getElementById('male');
+	var female = document.getElementById('female');
+	
+	if(!(male.checked) && !(female.checked)) {
 		alert("성별을 입력하세요.");
 		return;
 		}
+	
 	
 // 휴대전화 유효성 검사
 
@@ -98,7 +103,7 @@ function joinCheck(){
 	var eid = document.joinfrm.eid.value;
 	var edomain = document.joinfrm.edomain.value;
 	var checkEid = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])$/;
-	var checkEdomain = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+	var checkEdomain = /^([0-9a-zA-Z]+\.)+[a-zA-Z]{2,3}$/;
 	
 	
 	if(eid==""){
@@ -116,7 +121,7 @@ function joinCheck(){
 		document.joinfrm.edomain.focus();
 		return;
 		}
-	if(!edomain.match(checkEdomain)||edomain.match(checkBlk)){
+	if(!edomain.match(checkEdomain)){
 		alert("이메일 주소형식을 확인해 주세요");
 		document.joinfrm.edomain.focus();
 		return;

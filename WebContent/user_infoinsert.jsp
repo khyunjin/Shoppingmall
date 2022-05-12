@@ -57,8 +57,8 @@ function idCheck(id) {
 	<div class="row mb-3">
 		<label class="col-sm-2 col-form-label">성별<a style="color:red;">*</a></label>
 		<div class="col-auto mt-2">
-		남&nbsp;<input type="radio" name="gender" id="gender" value="남" class="form-check-input">&nbsp;
-		여&nbsp;<input type="radio" name="gender" id="gender" value="여" class="form-check-input">
+		남&nbsp;<input type="radio" name="gender" id="male" value="남" class="form-check-input">&nbsp;
+		여&nbsp;<input type="radio" name="gender" id="female" value="여" class="form-check-input">
 		</div>
 	</div>
 <hr>

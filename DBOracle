@@ -36,10 +36,6 @@ regdate date default sysdate
 );
 
 
-insert into shop_product_tbl values(10001, '쇼핑몰테스트옷1','1','102',2000,10000,8000,'테스트용설명입니다','31.jpg','y','y',sysdate);
-insert into shop_product_tbl values(10002, '클래식 포멀 싱글 버튼 자켓','1','101',20000,60000,40000,'테스트용설명입니다','26.jpg','y','y',sysdate);
-
-
 /* 상품 옵션 중 prodcolor(색상) 테이블 */
 create table shop_prodcolor_tbl (
 prodnum number(5),
@@ -54,16 +50,6 @@ prodnum number(5),
 prodsize varchar2(10),
 constraint fk_prodsize foreign key(prodnum) references shop_product_tbl(prodnum) on delete cascade
 );
-
-
-insert into shop_prodcolor_tbl values(10001, 'gray');
-insert into shop_prodcolor_tbl values(10001, 'black');
-insert into shop_prodsize_tbl values(10001, 'free');
-
-
-insert into shop_prodcolor_tbl values(10002, 'blue');
-insert into shop_prodcolor_tbl values(10002, 'pink');
-insert into shop_prodsize_tbl values(10002, 'free');
 
 
 /* 장바구니 테이블 */
@@ -109,12 +95,6 @@ orderindate date default sysdate,	--주문한 날짜
 constraint fk_order_id foreign key(id) references shop_member_tbl(id) on delete cascade		--회원 탈퇴시 주문 정보 함께 지우며 처리됨
 );
 
-
-/* 주문 번호 시퀀스 생성 */
-create sequence orderseq
-start with 1
-increment by 1;
-
  
 /* 주문 상세 테이블 */
 create table shop_odetail_tbl (
@@ -146,9 +126,124 @@ where d.prodnum = p.prodnum and o.ordernum = d.ordernum;
 /* 주문 상세 조회시 필요한 view 생성 */
 create view order_detail_view
 as
-select o.ordernum, o.ordername, o.orderadd, o.orderphone, o.orderreq, p.image, p.name,
+select o.ordernum, o.ordername, o.orderadd, o.orderphone, o.orderreq, p.image, p.name, d.prodnum,
 d.prodcolor, d.prodsize, d.quantity, (d.quantity * p.price2) as price, o.totalprice, o.allquantity
 from SHOP_ORDER_TBL o, SHOP_ODETAIL_TBL d, SHOP_PRODUCT_TBL p
 where d.prodnum = p.prodnum and o.ordernum = d.ordernum;
 
+
+/* 테스트용 쿼리 */
+
+insert into shop_product_tbl values(10001, '베이지 체크 배색 싱글 트렌치 코트','1','102',10000,79000,69000,'체크 배색 포인트로 클래식한 무드의 싱글 트렌치 코트입니다. 간절기 시즌 입기 좋은 적당한 기장과 두께로 다양한 착장에 캐주얼하고 멋스럽게 코디 할 수 있는 아이템입니다.','coat1.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10001, 'beige');
+insert into shop_prodsize_tbl values(10001, 'S');
+insert into shop_prodsize_tbl values(10001, 'M');
+
+insert into shop_product_tbl values(10002, '싱글 트렌치 코트','1','102',10000,79000,69000,'내추럴한 느낌의 코튼 혼방 소재로 제작된 에센셜 트렌치 코트입니다. 탈부착이 가능한 벨트를 활용해서 다양한 연출이 가능하며 여유로운 실루엣으로 편안하게 착용 가능한 아이템. 캐주얼 뿐만 아니라 포멀한 룩에도 스타일링 하기 좋은 활용도 높은 제품입니다.','coat2.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10002, 'ivory');
+insert into shop_prodcolor_tbl values(10002, 'black');
+insert into shop_prodsize_tbl values(10002, 'S');
+insert into shop_prodsize_tbl values(10002, 'M');
+
+insert into shop_product_tbl values(10003, '블랙 화섬 트렌치 코트','1','102',10000,79000,69000,'가벼운 코튼 나일론 소재로 제작된 트렌치 코트. 탈부착이 가능한 벨트를 활용해서 다양한 연출이 가능하며 여유로운 실루엣으로 편안하게 착용 가능한 아이템. 캐주얼 뿐만 아니라 포멀한 룩에도 스타일링 하기 좋은 활용도 높은 제품.','coat3.jpg','y','n',sysdate);
+insert into shop_prodcolor_tbl values(10003, 'black');
+insert into shop_prodsize_tbl values(10003, 'S');
+insert into shop_prodsize_tbl values(10003, 'M');
+
+insert into shop_product_tbl values(10004, '베이지 루즈핏 트렌치 코트','1','102',10000,79000,69000,'깔끔한 무드가 돋보이는 오버핏 더블 트렌치 코트. 허리 스트랩을 활용해 다양한 착장이 가능하며 클래식한 무드로 착용하기 좋은 제품.','coat4.jpg','y','n',sysdate);
+insert into shop_prodcolor_tbl values(10004, 'beige');
+insert into shop_prodsize_tbl values(10004, 'S');
+insert into shop_prodsize_tbl values(10004, 'M');
+
+insert into shop_product_tbl values(10005, '네이비 디테처블 후드 트렌치 코트','1','102',10000,79000,69000,'코튼 혼방 소재로 제작된 트렌치 코트. 탈부착이 가능한 후드 사양으로 다양한 연출이 가능한 아이템. 네이비 한 컬러로 제작되었으며 포멀 무드와 캐주얼 무드 어디에도 코디하기 좋은 제품.','coat5.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10005, 'navy');
+insert into shop_prodsize_tbl values(10005, 'S');
+insert into shop_prodsize_tbl values(10005, 'M');
+
+insert into shop_product_tbl values(10006, '베이지 쇼트 더블 트렌치 코트','1','102',10000,59000,49000,'매끄러운 터치감이 느껴지는 코튼/텐셀 블렌드 소재로 제작한 트렌치 코트. 더블 버튼 사양과 경쾌한 쇼트 기장감이 어우러져 멋스러운 제품. 솔리드 베이지 컬러로 제안하여 클래식, 캐주얼 어떠한 스타일링도 가능한 활용도 높은 아이템.','coat6.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10006, 'beige');
+insert into shop_prodsize_tbl values(10006, 'S');
+insert into shop_prodsize_tbl values(10006, 'M');
+
+insert into shop_product_tbl values(10007, '베이지 셔켓형 핸드메이드 코트','1','102',10000,59000,49000,'고급스러운 트윌 조직의 울혼방 소재를 사용하여 입체적인 실루엣이 돋보이는 핸드메이드 코트. 유행에 구애 없이 활용하기 좋은 아이템.','coat7.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10007, 'beige');
+insert into shop_prodsize_tbl values(10007, 'S');
+insert into shop_prodsize_tbl values(10007, 'M');
+
+insert into shop_product_tbl values(10008, '애쉬 멜란지 트윌 스탠드 칼라 코트','1','102',10000,59000,49000,'고급스러운 외관과 소프트한 터치감이 특징인 울 혼방 소재의 코트. 경쾌한 기장감과 스타일리시한 영 감성의 쇼트 기장의 제품. 캐주얼하면서도 여성스러운 무드가 매력적인 아이템으로 다양한 착장에 매치할 수 있는 시즌 필수 아이템.','coat8.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10008, 'gray');
+insert into shop_prodsize_tbl values(10008, 'S');
+insert into shop_prodsize_tbl values(10008, 'M');
+
+insert into shop_product_tbl values(10009, '리넨 트윌 반팔 싱글 재킷','1','101',10000,59000,49000,'하프 슬리브와 싱글 여밈으로 캐주얼한 무드를 보여주는 아이템.','jacket1.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10009, 'gray');
+insert into shop_prodsize_tbl values(10009, 'S');
+insert into shop_prodsize_tbl values(10009, 'M');
+
+insert into shop_product_tbl values(10010, '투버튼 반팔 숏재킷','1','101',10000,59000,49000,'짧은 기장감과 레몬 컬러감이 매력적인 아이템으로, 경쾌하면서도 매력적인 영 감성을 보여주는 제품. 원피스 착용의 여성스러운 코디부터 데님 착용의 캐주얼한 룩까지 다양한 착장에 멋스럽게 활용 가능한 아이템.','jacket2.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10010, 'lemon');
+insert into shop_prodsize_tbl values(10010, 'S');
+insert into shop_prodsize_tbl values(10010, 'M');
+
+insert into shop_product_tbl values(10011, '싱글 반팔 쇼트재킷','1','101',10000,59000,49000,'가벼운 터치감이 매력적인 폴리 소재로 제작되었으며, 미니멀한 디자인과 클린한 실루엣이 돋보이는 싱글 투버튼 쇼트 재킷. 포멀룩부터 캐주얼룩까지 다양한 코디를 완성 시켜줄 시즌 만능 아이템으로 동일 소재로 제작된 쇼츠(321525LY3A)와 코디하면 매력적인 셋업을 연출할 수 있는 제품.','jacket3.jpg','y','n',sysdate);
+insert into shop_prodcolor_tbl values(10011, 'beige');
+insert into shop_prodsize_tbl values(10011, 'S');
+insert into shop_prodsize_tbl values(10011, 'M');
+
+
+insert into shop_product_tbl values(10012, '서머 트위드 반팔 숏재킷','1','101',10000,49000,39000,'가벼운 터치감과 조직감 있는 소재감이 매력적인 재킷. 경쾌한 크롭기장으로 데님과 코디네이션하여 캐주얼하고 여성스러운 룩을 연출할 수 있는 아이템.','jacket4.jpg','y','n',sysdate);
+insert into shop_prodcolor_tbl values(10012, 'blue');
+insert into shop_prodsize_tbl values(10012, 'S');
+insert into shop_prodsize_tbl values(10012, 'M');
+
+
+insert into shop_product_tbl values(10013, '트위드 칼라넥 재킷','1','101',10000,49000,39000,'사랑스러운 파스텔 컬러의 트위드 재킷. 짧은 길이감이 경쾌함을 주며 이너로 활용하다 여름 시즌 단품으로 착용할 수 있는 제품. ','jacket5.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10013, 'pink');
+insert into shop_prodsize_tbl values(10013, 'S');
+insert into shop_prodsize_tbl values(10013, 'M');
+
+insert into shop_product_tbl values(10014, '트위드 반팔 재킷','1','101',10000,49000,39000,'솔리드 블랙 컬러 트위드 소재 반팔 재킷. 라운드넥 디자인에 슬림한 실루엣으로 여성스러운 무드를 연출할 수 있는 제품. 블랙 컬러로 코디가 용이하며 데님, 스커트 등 다양한 하의 아이템과 코디할 수 있어 간절기에 활용하기 좋은 아우터.','jacket6.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10014, 'black');
+insert into shop_prodsize_tbl values(10014, 'free');
+
+insert into shop_product_tbl values(10015, '크롭 데님 트러커 재킷','1','101',10000,49000,39000,'크롭한 기장의 데님 트러커. 여름에도 아침 저녁으로 가볍게 걸쳐 입기 좋은 저온스 데님 소재로 전판에 2개의 오픈 포켓 디테일이 포인트인 아이템.','jacket7.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10015, 'sky blue');
+insert into shop_prodsize_tbl values(10015, 'S');
+insert into shop_prodsize_tbl values(10015, 'M');
+
+insert into shop_product_tbl values(10016, '리넨 트윌 스티치 하프 슬리브 숏재킷','1','101',10000,69000,59000,'고급스러우면서도 청량한 터치감의 리넨 혼방 트윌소재로 제작된 제품. 하프 슬리브와 싱글 여밈으로 다양한 하의와 함께 캐주얼하면서도 스타일리쉬한 무드 연출이 가능한 아이템.','jacket8.jpg','y','y',sysdate);
+insert into shop_prodcolor_tbl values(10016, 'beige');
+insert into shop_prodsize_tbl values(10016, 'S');
+insert into shop_prodsize_tbl values(10016, 'M');
+
+insert into shop_product_tbl values(10017, '서머 골지 반팔 티셔츠','2','201',3000,20000,17000,'여름철 시원하게 입을 수 있는 터치감의 소재로, 일반 코튼 티셔츠보다 더욱 가볍게 착용할 수 있는 제품. ','t1.jpg','y','y',sysdate);
+insert into shop_prodcolor_tbl values(10017, 'beige');
+insert into shop_prodcolor_tbl values(10017, 'navy');
+insert into shop_prodsize_tbl values(10017, 'S');
+insert into shop_prodsize_tbl values(10017, 'M');
+
+insert into shop_product_tbl values(10018, ' 스트라이프 스트링 티셔츠','2','201',3000,30000,27000,'산뜻한 라이트 퍼플 컬러 베이스의 멀티 스트라이프로 단품 착용만으로도 트렌디하게 포인트를 줄 수 있는 제품.','t2.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10018, 'purple');
+insert into shop_prodsize_tbl values(10018, 'S');
+insert into shop_prodsize_tbl values(10018, 'M');
+
+insert into shop_product_tbl values(10019, '그래픽 반팔 티셔츠','2','201',3000,30000,27000,'화사한 핑크 컬러에 귀여운 화이트 그래픽이 매력적인 반팔 티셔츠. 단품으로도 착장에 포인트를 줄 수 있는 아이템.','t3.jpg','n','n',sysdate);
+insert into shop_prodcolor_tbl values(10019, 'pink');
+insert into shop_prodsize_tbl values(10019, 'S');
+insert into shop_prodsize_tbl values(10019, 'M');
+
+insert into shop_product_tbl values(10020, '그래픽 크롭 반팔 티셔츠','2','201',3000,30000,27000,'크롭 기장의 코튼 혼방 소재로 몸에 맞는 핏이며, 화사한 아이보리 컬러에 귀여운 그래픽으로 포인트를 주어 러블리한 캐주얼룩을 완성 시킬 수 있는 아이템.','t4.jpg','n','y',sysdate);
+insert into shop_prodcolor_tbl values(10020, 'white');
+insert into shop_prodsize_tbl values(10020, 'S');
+insert into shop_prodsize_tbl values(10020, 'M');
+
+insert into shop_product_tbl values(10021,'테리 카디건형 티셔츠','2','201',3000,30000,27000,'테리 소재의 카디건형 티셔츠로, 편안하면서도 트렌디하게 착용하기 좋은 제품. 살짝 짧은 기장에 세미 슬림핏으로 와이드한 하의와 함께 매치하기 좋은 아이템.','t5.jpg','y','n',sysdate);
+insert into shop_prodcolor_tbl values(10021, 'lemon');
+insert into shop_prodsize_tbl values(10021, 'S');
+insert into shop_prodsize_tbl values(10021, 'M');
+
+insert into shop_product_tbl values(10022,'플리츠 카디건형 티셔츠','2','201',3000,30000,27000,'조직감이 느껴지는 주름지 소재의 카디건형 티셔츠. 시원하고 가볍게 착용할 수 있는 스타일. 슬랙스와 매치하여 출근룩, 데일리룩으로 활용하기 좋으며 데님과 캐주얼하게 착용하기 좋은 아이템.','t6.jpg','y','n',sysdate);
+insert into shop_prodcolor_tbl values(10022, 'black');
+insert into shop_prodsize_tbl values(10022, 'S');
+insert into shop_prodsize_tbl values(10022, 'M');
 

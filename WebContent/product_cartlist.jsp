@@ -117,7 +117,7 @@ a {
 		<span style="width: 120px;">
 			<%= dto.getPrice2() * dto.getQuantity() %>원</span>
 		<span style="width: 170px;">
-			<input id="order" type="button" value="주문">
+			<input id="order" type="button" onclick="location.href='product_order_direct.jsp?prodnum=<%= dto.getProdnum() %>&prodcolor=<%= dto.getProdcolor() %>&prodsize=<%= dto.getProdsize() %>&totalp=<%= dto.getPrice2() * dto.getQuantity() %>&quantity=<%= dto.getQuantity() %>'" value="주문">
 			<input id="delete" type="button" onclick="location.href='./cartdel?cartnum=<%= dto.getCartnum() %>'" value="삭제"></span>
 	</form>
 <% } %>

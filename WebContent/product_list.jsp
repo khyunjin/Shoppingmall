@@ -15,12 +15,12 @@
 <style>
 .product-list {
 	width: 1250px;
-	height: 800px;
+	height: 1000px;
 	margin: 0 auto;
  }
 .product-box {
 	width: 300px;
-	height: 550px;
+	height: 450px;
 	padding: 13px;
 	margin-left: 10px;
 	margin-bottom: 10px;

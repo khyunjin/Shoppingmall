@@ -589,6 +589,7 @@ public class ProductDAO {
 				dto.setOrderreq(rs.getString("orderreq"));
 				dto.setImage(rs.getString("image"));
 				dto.setName(rs.getString("name"));
+				dto.setProdnum(rs.getInt("prodnum"));
 				dto.setProdcolor(rs.getString("prodcolor"));
 				dto.setProdsize(rs.getString("prodsize"));
 				dto.setQuantity(rs.getInt("quantity"));
